@@ -312,7 +312,6 @@ export class VerifyComponent implements OnInit, OnDestroy {
   }
 
   verifyOTP() {
-    debugger
     let self = this;
     const request = {
       "id": self.appConfigService['mosip.resident.api.id.otp.request'],
