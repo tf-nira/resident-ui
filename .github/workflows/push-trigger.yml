@@ -18,9 +18,9 @@ on:
       - release-*
       - master
       - develop*
-      - 1*
       - MOSIP*
       - verify
+      - tf_nira_dev
 
 jobs:
   build-resident-ui:
