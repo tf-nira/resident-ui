@@ -20,6 +20,7 @@ on:
       - develop*
       - 1*
       - MOSIP*
+      - verify
 
 jobs:
   build-resident-ui:
