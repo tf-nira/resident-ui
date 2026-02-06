@@ -267,7 +267,7 @@ export class VerifyComponent implements OnInit, OnDestroy {
       "version": self.appConfigService["mosip.resident.api.version.otp.request"],
       "transactionID": self.transactionID,
       "requestTime": Utils.getCurrentDate(),
-      "individualId": self.individualId,
+      "individualId": self.individualId + "@nin",
       "otpChannel": self.otpChannel
     };
   
@@ -312,6 +312,7 @@ export class VerifyComponent implements OnInit, OnDestroy {
   }
 
   verifyOTP() {
+    debugger
     let self = this;
     const request = {
       "id": self.appConfigService['mosip.resident.api.id.otp.request'],
