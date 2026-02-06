@@ -267,7 +267,7 @@ export class VerifyComponent implements OnInit, OnDestroy {
       "version": self.appConfigService["mosip.resident.api.version.otp.request"],
       "transactionID": self.transactionID,
       "requestTime": Utils.getCurrentDate(),
-      "individualId": self.individualId,
+      "individualId": self.individualId + "@nin",
       "otpChannel": self.otpChannel
     };
   

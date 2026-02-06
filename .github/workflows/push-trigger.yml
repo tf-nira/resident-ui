@@ -19,6 +19,7 @@ on:
       - master
       - develop*
       - MOSIP*
+      - verify
       - tf_nira_dev
 
 jobs:
