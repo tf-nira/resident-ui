@@ -93,6 +93,7 @@ export class VerifyComponent implements OnInit, OnDestroy {
           this.deviceSize = "XLarge";
         }
       }
+      
     });
   }
 
