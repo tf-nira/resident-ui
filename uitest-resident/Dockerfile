@@ -2,7 +2,8 @@
 #FROM openjdk:21-slim
 #FROM openjdk:11
 #FROM eclipse-temurin:11-jdk
-FROM eclipse-temurin:21-jre-jammy
+#FROM eclipse-temurin:21-jre-jammy
+eclipse-temurin:21-jdk-jammy
 
 # Install additional dependencies, such as Selenium, Chrome, and kubectl
 USER root
