@@ -8,7 +8,8 @@ FROM eclipse-temurin:21-jdk-jammy
 USER root
 
 RUN apt-get update && \
-    apt-get install -y wget curl unzip xvfb libxi6 libgconf-2-4 chromium chromium-driver
+    apt-get install -y wget curl unzip xvfb libxi6 libgconf-2-4 chromium-browser chromium-chromedriver && \
+    rm -rf /var/lib/apt/lists/*
 
 # Install kubectl
 RUN curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" && \
