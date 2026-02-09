@@ -225,7 +225,7 @@
         "title": "",
         "mobileno": "Verify phone number",
         "email": "Verify email ID",
-        "uid": "Enter UIN/ VID",
+        "uid": "Enter Your NIN/AIN",
         "captcha": "Enter Captcha",
         "sendotp": "Send OTP",
         "otp": "Enter OTP",
