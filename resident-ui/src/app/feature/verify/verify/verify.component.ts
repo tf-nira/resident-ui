@@ -320,7 +320,7 @@ export class VerifyComponent implements OnInit, OnDestroy {
       "requesttime": Utils.getCurrentDate(),
       "request": {
         "transactionId": self.transactionID,
-        "individualId": self.individualId,
+        "individualId": self.individualId + "@nin",
         "otp": self.otp
       }
     };
