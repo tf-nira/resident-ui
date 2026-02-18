@@ -48,6 +48,7 @@ export class GetuinComponent implements OnInit {
   vidLength:string;
   uinLength:string;
   aidLength:string;
+  ninLength:string;
   isLoading:boolean = true;
 
   constructor(
@@ -89,6 +90,7 @@ export class GetuinComponent implements OnInit {
     this.vidLength = this.appConfigService.getConfig()["mosip.kernel.vid.length"];
     this.uinLength = this.appConfigService.getConfig()["mosip.kernel.uin.length"];
     this.aidLength = this.appConfigService.getConfig()["mosip.kernel.rid.length"];
+    this.ninLength = this.appConfigService.getConfig()["mosip.kernel.nin.length"];
     this.getLangData()
     this.isLoading = false;
   }
@@ -100,7 +102,7 @@ export class GetuinComponent implements OnInit {
       .subscribe(response => {
         this.getUinData = response.uinservices
         this.popupMessages = response
-        this.infoText = response.InfomationContent.getUin.replace('$AID',this.aidLength).replace('$UIN',this.uinLength).replace('$VID',this.vidLength)
+        this.infoText = response.InfomationContent.getUin.replace('$AID',this.aidLength).replace('$UIN',this.uinLength).replace('$VID',this.vidLength).replace('$NIN',this.ninLength)
         this.getStatusData = response.uinStatus
         this.stageKeys =  Object.keys(this.getStatusData.statusStages)
     });
@@ -129,13 +131,13 @@ export class GetuinComponent implements OnInit {
   getUserID(event){
     this.aid = event.target.value
     if (this.captchaEnable) {
-      if (grecaptcha.getResponse().length && (this.aid.length == parseInt(this.vidLength) || this.aid.length == parseInt(this.uinLength) || this.aid.length == parseInt(this.aidLength))) {
+      if (grecaptcha.getResponse().length && (this.aid.length == parseInt(this.vidLength) || this.aid.length == parseInt(this.uinLength) || this.aid.length == parseInt(this.aidLength) || this.aid.length == parseInt(this.ninLength))) {
         this.disableSendOtp = false;
       } else {
         this.disableSendOtp = true;
       }
     }else{
-      if (this.aid.length == parseInt(this.vidLength) || this.aid.length == parseInt(this.uinLength) || this.aid.length == parseInt(this.aidLength)) {
+      if (this.aid.length == parseInt(this.vidLength) || this.aid.length == parseInt(this.uinLength) || this.aid.length == parseInt(this.aidLength) || this.aid.length == parseInt(this.ninLength)) {
         this.disableSendOtp = false;
       }else{
         this.disableSendOtp = true;
@@ -146,7 +148,7 @@ export class GetuinComponent implements OnInit {
   getCaptchaToken(event: any) {
     if (event) {
       if(this.captchaEnable){
-        if(this.aid.length == parseInt(this.vidLength) || this.aid.length == parseInt(this.uinLength) || this.aid.length == parseInt(this.aidLength)){
+        if(this.aid.length == parseInt(this.vidLength) || this.aid.length == parseInt(this.uinLength) || this.aid.length == parseInt(this.aidLength) || this.aid.length == parseInt(this.ninLength)){
           this.disableSendOtp = false;
         }
       }else{
