@@ -22,7 +22,7 @@
       <div class="uin-login-title-card" for="uin" [style.font-size]="fontSize.paragraph">{{verifyChannelData.uid | translate }}
         <mat-icon class="info-icon" #tooltip="matTooltip" [matTooltip]="infoText" matTooltipPosition="below" matTooltipClass="left">info</mat-icon>
       </div>
-      <input [style.font-size]="fontSize.paragraph" id="uidValue" type="text" id="uin" name="uin" (input)="captureValue($event, 'individualId')" (keypress)="isNumberKey($event)"
+      <input [style.font-size]="fontSize.paragraph" id="uidValue" type="text" id="uin" name="uin" (input)="captureValue($event, 'individualId')"
         value={{individualId}} placeholder="{{verifyChannelData.uid | translate}}" style="padding: 6px 10px;"/>
       <div class="not-robot-verifing-card" *ngIf="siteKey && captchaEnable">
         <app-captcha [captchaSiteKey]="siteKey" [resetCaptcha]="resetCaptcha"

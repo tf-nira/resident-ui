@@ -51,6 +51,7 @@ export class VerifyComponent implements OnInit, OnDestroy {
   vidLength:string = "0";
   uinLength:string = "0";
   aidLength:string = "0";
+  ninLength:string = "0";
 
   constructor(
     private router: Router,
@@ -93,6 +94,7 @@ export class VerifyComponent implements OnInit, OnDestroy {
           this.deviceSize = "XLarge";
         }
       }
+      
     });
   }
 
@@ -112,6 +114,7 @@ export class VerifyComponent implements OnInit, OnDestroy {
       self.vidLength = self.appConfigService["mosip.kernel.vid.length"];
       self.uinLength = self.appConfigService["mosip.kernel.uin.length"];
       self.aidLength = self.appConfigService["mosip.kernel.rid.length"];
+      self.ninLength = self.appConfigService["mosip.kernel.nin.length"];
     }, 1000);  
     /*this.captchaService.captchStatus.subscribe((status)=>{
       this.captchaStatus = status;
@@ -169,7 +172,7 @@ export class VerifyComponent implements OnInit, OnDestroy {
 
   getCaptchaToken(event: Event) {
     this.captchaChecked = true
-    if (this.channelSelected && (this.individualId.length == parseInt(this.vidLength) || this.individualId.length == parseInt(this.uinLength) || this.individualId.length == parseInt(this.aidLength))) {
+    if (this.channelSelected && (this.individualId.length == parseInt(this.vidLength) || this.individualId.length == parseInt(this.uinLength) || this.individualId.length == parseInt(this.aidLength) || this.individualId.length == parseInt(this.ninLength) )) {
       if(this.captchaEnable){
         if(this.captchaChecked){
           this.disableSendOtp = false
@@ -184,7 +187,7 @@ export class VerifyComponent implements OnInit, OnDestroy {
   
   captureValue(event: any, formControlName: string) {
     this[formControlName] = event.target.value;
-    if (this.channelSelected && (this.individualId.length == parseInt(this.vidLength) || this.individualId.length == parseInt(this.uinLength) || this.individualId.length == parseInt(this.aidLength))) {
+    if (this.channelSelected && (this.individualId.length == parseInt(this.vidLength) || this.individualId.length == parseInt(this.uinLength) || this.individualId.length == parseInt(this.aidLength) || this.individualId.length == parseInt(this.ninLength))) {
       if(this.captchaEnable){
         if(this.captchaChecked){
           this.disableSendOtp = false
