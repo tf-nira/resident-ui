@@ -16,7 +16,7 @@
           <img  alt="info-icon" class="info-icon" src="./assets/images/info_black_24dp (1).png" />
           </button>
         </div>
-        <input [style.font-size]="fontSize.paragraph" id="aidValue" class="input-text" type="text" ngModel (input)="getUserID($event)" placeholder="{{getUinData.enterHere}}"/>
+        <input [style.font-size]="fontSize.paragraph" id="aidValue" class="input-text" type="text" ngModel (input)="getUserID($event)" (keypress)="isNumberKey($event)" placeholder="{{getUinData.enterHere}}"/>
         <!-- <br /> -->
         <!-- <label class="label-text" >{{getUinData.description | translate}}</label> -->
         <div *ngIf="siteKey && captchaEnable" id="recaptcha-container">
