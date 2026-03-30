@@ -62,7 +62,7 @@
 												  <label [style.font-size]="fontSize.breadcrumb" style="color: #666666;">{{sharableAttributes['fullName']['label']}}</label><br><span [style.font-size]="fontSize.paragraph" style="color: #000000; font-weight: 400;">{{sharableAttributes['fullName']['value']}}</span>
 											   </span>
 											</td>
-											<td [ngStyle]="{'float': langCode === 'ara' ? 'left' : 'right' }"><img style="height: 50px; width: 50px;" alt="logo" src="/assets/MOSIP Vertical Black.png"/></td>
+											<td [ngStyle]="{'float': langCode === 'ara' ? 'left' : 'right' }"><img style="height: 50px; width: auto;" alt="logo" src="/assets/nira_website_logo.png"/></td>
 										</tr>
 										<tr *ngIf="sharableAttributes['dateOfBirth'] || sharableAttributes['gender']" style="word-break: break-word;">
 											<td *ngIf="sharableAttributes['dateOfBirth']" colspan='1'><label [style.font-size]="fontSize.breadcrumb" style="color: #666666;">{{sharableAttributes['dateOfBirth']['label']}}</label><br><span [style.font-size]="fontSize.paragraph" style="color: #000000; font-weight: 400;">{{sharableAttributes['dateOfBirth']['value']}}</span></td>
@@ -95,7 +95,7 @@
 								<tr>
 									<td>
 										<mat-select [style.fontSize]="fontSize.lableText" (selectionChange)="captureDropDownValue($event)" class="enable-dropdown" id="partnerDetails">
-											<mat-option 
+											<mat-option
 											    *ngFor="let partnerDetail of partnerDetails; let i = index"
 												id="partner{{i}}" [value]="partnerDetail.partnerID">
 												{{partnerDetail.organizationName}}</mat-option>
@@ -111,7 +111,7 @@
 								<tr>
 									<td>
 									<span class="purpose-search-card" >
-										<textarea [style.fontSize]="fontSize.lableText" [attr.maxlength]="totalCommentCount" 
+										<textarea [style.fontSize]="fontSize.lableText" [attr.maxlength]="totalCommentCount"
 											id="sharingReasonPlaceholder" class="purpose-input-box" matInput
 											placeholder="{{'sharewithpartner.sharingReasonPlaceholder' | translate}}"
 											(input)="getpurpose($event)"

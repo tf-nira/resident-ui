@@ -4,7 +4,7 @@
 .mat-sidenav-container {
   height: 5em;
   background: white;
-  margin-bottom: 2em;  
+  margin-bottom: 2em;
 }
 .mat-sidenav {
   width: 180px;
@@ -164,32 +164,33 @@
   top: 20px;
 }
 .red-icon-card{
-  display: flex; 
-  align-items: center; 
-  justify-content: center; 
-  height:50px; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height:50px;
   width:50px;
 }
 .unread-icon-card{
-  display: flex; 
-  align-items: center; 
-  justify-content: center; 
-  height:41px; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height:41px;
   width:50px;
 }
 .img-fluid{
   height: 90%;
-  width: 80px;
+  width: auto;
+  width:90%;
 }
 .hearder-logo{
   background-color: #ffffff;
   height: 100%;
-  width: 150px;
+  width: 250px;
   text-align: center;
 }
 
 .notification-icon{
-  color: white; 
+  color: white;
 }
 
 .font-size-btn{
