@@ -1022,7 +1022,7 @@
           </div>
         </div>
       </mat-tab>
-      <mat-tab label="{{'updatedemographic.languagePreference' | translate}}" class="language-card">
+      <mat-tab *ngIf="false" label="{{'updatedemographic.languagePreference' | translate}}" class="language-card">
         <h3 [style.font-size]="fontSize.headingForUIN" class="tab-headings">{{'updatedemographic.languageHeading' | translate}}</h3>
         <div *ngFor="let field of schema['identity']; let i = index" dir="{{sitealignment}}">
           <div *ngIf="field.tabgroup === 'notificationLanguage' && field.controlType === 'dropdown'">
