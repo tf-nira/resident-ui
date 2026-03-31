@@ -810,22 +810,50 @@ export class UpdatedemographicComponent implements OnInit, OnDestroy {
     this.userInputValues[formControlName] = event.source.viewValue;
   }
 
+  // captureContactValue(event: any, formControlName: any) {
+  //   this.userId = event.target.value.trim();
+  //   this.contactTye = formControlName.attributeName;
+    
+  //   if(new RegExp(formControlName.validators[0].validator).test(this.userId)){
+  //     this.sendOtpDisable = false;
+  //   }else{
+  //     this.sendOtpDisable = true;
+  //   }
+    
+  //   if(formControlName.attributeName === "email"){
+  //     this.userIdEmail = this.userId
+  //   }else{
+  //     this.userIdPhone = this.userId
+  //   }
+  // }
+
   captureContactValue(event: any, formControlName: any) {
-    this.userId = event.target.value.trim();
-    this.contactTye = formControlName.attributeName;
+  const value = event.target.value.trim();
     
-    if(new RegExp(formControlName.validators[0].validator).test(this.userId)){
-      this.sendOtpDisable = false;
-    }else{
-      this.sendOtpDisable = true;
-    }
-    
-    if(formControlName.attributeName === "email"){
-      this.userIdEmail = this.userId
-    }else{
-      this.userIdPhone = this.userId
-    }
+  this.userId = value;
+  this.contactTye = formControlName.attributeName;
+
+  let isValid = false;
+   const regexMap: any = {
+    email: /^(?=.{1,67}$)[A-Za-z0-9_\-]+(\.[A-Za-z0-9_]+)*@[A-Za-z0-9_-]+(\.[A-Za-z0-9_]+)*(\.[a-zA-Z]{2,})$/,
+    phone: /^\d{9,11}$/
+  };
+
+   if (regex) {
+    isValid = regex.test(value);
+    console.log("Validation Result:", isValid);
+  } else {
+    console.warn("No regex found for:", formControlName.attributeName);
   }
+    this.sendOtpDisable = !isValid;
+  
+  if (formControlName.attributeName === "email") {
+    this.userIdEmail = value;
+  } else if (formControlName.attributeName === "phone") {
+    this.userIdPhone = value;
+  }
+}
+
 
   capturePerfLang(event: any, formControlName: string) {
     this.userPrefLang[formControlName] = event.value;
