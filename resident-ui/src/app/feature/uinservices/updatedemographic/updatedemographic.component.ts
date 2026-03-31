@@ -838,6 +838,7 @@ export class UpdatedemographicComponent implements OnInit, OnDestroy {
     email: /^(?=.{1,67}$)[A-Za-z0-9_\-]+(\.[A-Za-z0-9_]+)*@[A-Za-z0-9_-]+(\.[A-Za-z0-9_]+)*(\.[a-zA-Z]{2,})$/,
     phone: /^\d{9,11}$/
   };
+  const regex = regexMap[formControlName.attributeName];
 
    if (regex) {
     isValid = regex.test(value);
