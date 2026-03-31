@@ -558,7 +558,7 @@
         "loginSuccessfully": "Dear resident, you logged in complected successfully",
         "successRemainMsg": "to track service request with pre-filled EID.",
         "passwordCombinationHeading": "Password combination: ",
-        "passwordCombination": "First four letters of your first name in capital letters and your year of birth. E.g.: If your name is Johnny Depp and your birthdate is 09/06/1963, your password will be JOHN1963.",
+        "passwordCombination": "First Two letters of your Given name in capital letters and your year of birth. E.g.: If your Given name is Johnny Depp and your birthdate is 09/06/1963, your password will be JO1963.",
         "SuccessLogin": "You have successfully logged in.",
         "successLogout": "You have successfully logged out. ",
         "dearResident": "Dear Resident,",
