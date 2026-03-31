@@ -407,10 +407,11 @@
                               <mat-select [style.font-size]="fontSize.paragraph" disableOptionCentering class="enable-dropdown"
                                 placeholder="{{langJson.docTypePlaceholder}}"
                                 [value]="proofOfIdentity['documenttype'] ? proofOfIdentity['documenttype'] : '' "
-                                id="{{field.attributeName}}"
-                                (selectionChange)="captureDropDownValue($event, field.attributeName, supportedLanguages[0], '')">
+                                id="{{field.attributeName}}">
                                 <mat-option class="multiline-mat-option"
-                                  *ngFor="let data of dropDownValues[field.attributeName]" [value]="data.code">{{
+                                  *ngFor="let data of dropDownValues[field.attributeName]"
+                                  (onSelectionChange)="captureAddressDropDownValue($event, field.attributeName)"
+                                  [value]="data.code">{{
                                   data.name }}</mat-option>
                               </mat-select>
                             </td>
