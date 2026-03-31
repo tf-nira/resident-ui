@@ -53,14 +53,18 @@ mat-card-title {
   color: white !important;
   margin-right: 10px;
   font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .logout-btn:hover {
   background-color: #028a3a !important;
 }
 
-.logout-btn mat-icon {
-  margin-right: 8px;
+.logout-icon {
+  font-size: 20px;
+  font-weight: 500;
 }
 
 .uin-services-heading{

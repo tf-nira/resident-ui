@@ -6,8 +6,8 @@
 		<div class="heading-container">
 			<h2 [style.font-size]="fontSize.heading" class="uin-heading">{{'dashboard.uinservices' | translate}}</h2>
 			<button mat-raised-button class="logout-btn" (click)="showRedirectPopup()" [style.font-size]="fontSize.paragraph">
-				<mat-icon>logout</mat-icon>
-				{{'dashboard.logout' | translate}}
+				<span class="material-icons logout-icon">logout</span>
+				{{'Logout' | translate}}
 			</button>
 		</div>
 		<mat-card-subtitle [style.font-size]="fontSize.paragraph"
