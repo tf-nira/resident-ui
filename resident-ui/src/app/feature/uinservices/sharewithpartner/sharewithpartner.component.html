@@ -62,7 +62,7 @@
 												  <label [style.font-size]="fontSize.breadcrumb" style="color: #666666;">{{sharableAttributes['fullName']['label']}}</label><br><span [style.font-size]="fontSize.paragraph" style="color: #000000; font-weight: 400;">{{sharableAttributes['fullName']['value']}}</span>
 											   </span>
 											</td>
-											<td [ngStyle]="{'float': langCode === 'ara' ? 'left' : 'right' }"><img style="height: 50px; width: auto;" alt="logo" src="/assets/nira_website_logo.png"/></td>
+											<td [ngStyle]="{'float': langCode === 'ara' ? 'left' : 'right' }"><img style="height: 50px; width: auto;" alt="logo" src="/assets/nira_logo.png"/></td>
 										</tr>
 										<tr *ngIf="sharableAttributes['dateOfBirth'] || sharableAttributes['gender']" style="word-break: break-word;">
 											<td *ngIf="sharableAttributes['dateOfBirth']" colspan='1'><label [style.font-size]="fontSize.breadcrumb" style="color: #666666;">{{sharableAttributes['dateOfBirth']['label']}}</label><br><span [style.font-size]="fontSize.paragraph" style="color: #000000; font-weight: 400;">{{sharableAttributes['dateOfBirth']['value']}}</span></td>
