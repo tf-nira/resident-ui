@@ -33,11 +33,38 @@ mat-card-title {
   height: auto !important;
 }
 
+.heading-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
 .uin-heading {
   margin-left: 10px;
   font-weight: 600;
   letter-spacing: 0px;
   color: #505050;
+  margin: 0;
+}
+
+.logout-btn {
+  background-color: #03A64A !important;
+  color: white !important;
+  margin-right: 10px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.logout-btn:hover {
+  background-color: #028a3a !important;
+}
+
+.logout-icon {
+  font-size: 20px;
+  font-weight: 500;
 }
 
 .uin-services-heading{
