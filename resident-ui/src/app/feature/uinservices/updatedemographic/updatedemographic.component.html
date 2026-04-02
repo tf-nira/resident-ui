@@ -1022,6 +1022,11 @@
 
           </div>
         </div>
+        <div [ngClass]="langCode === 'ara' ? 'perLang-submit-btn-card-ara' :'perLang-submit-btn-card'"
+          *ngIf="langJson">
+          <button [style.font-size]="fontSize.paragraph"  mat-raised-button
+            (click)="updatenotificationLanguage()" color="primary" id="submit">{{langJson.submit}}</button>
+      </div>
       </mat-tab>
       <mat-tab *ngIf="false" label="{{'updatedemographic.languagePreference' | translate}}" class="language-card">
         <h3 [style.font-size]="fontSize.headingForUIN" class="tab-headings">{{'updatedemographic.languageHeading' | translate}}</h3>
