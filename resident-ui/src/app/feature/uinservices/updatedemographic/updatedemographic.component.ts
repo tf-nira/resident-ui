@@ -456,15 +456,35 @@ export class UpdatedemographicComponent implements OnInit, OnDestroy {
   }
 
   getGender() {
-    this.dropDownValues["gender"] = {}
-    this.dataStorageService.getDataForDropDown("/proxy/masterdata/dynamicfields/gender").subscribe(response => {
-      if (response['response']) {
-        response['response'].forEach(eachItem => {
-          this.dropDownValues["gender"][eachItem.langCode] = eachItem.fieldVal
-        })
-      }
-    });
-  }
+    this.dropDownValues["gender"] = {};
+    this.getUserPerfLang.forEach((lang) => {
+      this.dataStorageService
+      .getDataForDropDown(`/auth-proxy/masterdata/dynamicfields/gender/${lang}?withValue=true`)
+      .subscribe((response) => {
+        if (response && response["response"]) {
+          const res = response["response"];
+          let data = res["values"] || res["fieldVal"];
+          if (!data) {
+            console.warn(`No values found for gender in ${lang}. Ensure DB is_active=true.`);
+            return;
+          }
+          if (typeof data === 'string') {
+            try {
+              data = JSON.parse(data);
+            } catch (e) {
+              console.error("JSON parse error", e);
+            }
+          }
+          const finalArray = Array.isArray(data) ? data : [data];
+          if (!this.dropDownValues["gender"][lang]) {
+            this.dropDownValues["gender"][lang] = [];
+          }
+          this.dropDownValues["gender"][lang] = [...this.dropDownValues["gender"][lang], ...finalArray];
+          console.log(`Gender Dropdown [${lang}] successfully loaded with:`, this.dropDownValues["gender"][lang]);
+        }
+      });
+  });
+}
 
   getLocationHierarchyLevel() {
     let self = this;
