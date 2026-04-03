@@ -407,10 +407,10 @@
                               <mat-select [style.font-size]="fontSize.paragraph" disableOptionCentering class="enable-dropdown"
                                 placeholder="{{langJson.docTypePlaceholder}}"
                                 [value]="proofOfIdentity['documenttype'] ? proofOfIdentity['documenttype'] : '' "
-                                id="{{field.attributeName}}">
+                                id="{{field.attributeName}}"
+                                (selectionChange)="captureAddressDropDownValue($event, field.attributeName)">
                                 <mat-option class="multiline-mat-option"
                                   *ngFor="let data of dropDownValues[field.attributeName]"
-                                  (onSelectionChange)="captureAddressDropDownValue($event, field.attributeName)"
                                   [value]="data.code">{{
                                   data.name }}</mat-option>
                               </mat-select>
@@ -848,10 +848,10 @@
                               <td class="width-of-input">
                                 <mat-select [style.font-size]="fontSize.paragraph" disableOptionCentering class="enable-dropdown"
                                   [value]="proofOfAddress['documenttype'] ? proofOfAddress['documenttype'] : '' "
-                                  placeholder="{{langJson.docTypePlaceholder}}" id="{{field.attributeName}}">
+                                  placeholder="{{langJson.docTypePlaceholder}}" id="{{field.attributeName}}"
+                                  (selectionChange)="captureAddressDropDownValue($event, field.attributeName)">
                                   <mat-option  class="multiline-mat-option"
                                     *ngFor="let data of dropDownValues[field.attributeName]"
-                                    (onSelectionChange)="captureAddressDropDownValue($event, field.attributeName)"
                                     [value]="data.code">{{
                                     data.name }}</mat-option>
                                 </mat-select>
