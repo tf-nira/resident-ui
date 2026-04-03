@@ -60,8 +60,10 @@
 							<td *ngIf="dataDisplay['UIN']" ><label [style.font-size]="fontSize.breadcrumb"  style="color: #666666;">{{dataDisplay['UIN']['label']}}</label><br><span [style.font-size]="fontSize.paragraph"  class="detailinfo">{{dataDisplay['UIN']['value']}}</span></td>
 							<td colspan='2' *ngIf="dataDisplay['perpetualVID']" ><label style="color: #666666;" [style.font-size]="fontSize.breadcrumb" >{{dataDisplay['perpetualVID']['label']}}</label><br><span class="detailinfo" [style.font-size]="fontSize.paragraph" >{{dataDisplay['perpetualVID']['value']}}</span></td>
 						</tr> -->
-						<tr *ngIf="dataDisplay['NIN'] || dataDisplay['perpetualVID']">
-							<td *ngIf="dataDisplay['NIN']" ><label [style.font-size]="fontSize.breadcrumb"  style="color: #666666;">{{dataDisplay['NIN']['label']}}</label><br><span [style.font-size]="fontSize.paragraph"  class="detailinfo">{{dataDisplay['NIN']['value']}}</span></td>
+						<tr *ngIf="dataDisplay['NIN']">
+							<td colspan='2' *ngIf="dataDisplay['NIN']" ><label [style.font-size]="fontSize.breadcrumb"  style="color: #666666;">{{dataDisplay['NIN']['label']}}</label><br><span [style.font-size]="fontSize.paragraph"  class="detailinfo">{{dataDisplay['NIN']['value']}}</span></td>
+						</tr>
+						<tr *ngIf="dataDisplay['perpetualVID']">
 							<td colspan='2' *ngIf="dataDisplay['perpetualVID']" ><label style="color: #666666;" [style.font-size]="fontSize.breadcrumb" >{{dataDisplay['perpetualVID']['label']}}</label><br><span class="detailinfo" [style.font-size]="fontSize.paragraph" >{{dataDisplay['perpetualVID']['value']}}</span></td>
 						</tr>
 						<tr *ngIf="dataDisplay['phone']">
