@@ -708,6 +708,11 @@ export class UpdatedemographicComponent implements OnInit, OnDestroy {
       } else {
         self[formControlName]["documentreferenceId"] = userNewData;
         this.userInputValues[formControlName] = userNewData;
+        if (!this.userInfoClone[formControlName]) {
+          this.userInfoClone[formControlName] = {};
+        }
+        this.userInfoClone[formControlName]["documenttype"] = self[formControlName]["documenttype"] || this.userInfoClone[formControlName]["documenttype"];
+        this.userInfoClone[formControlName]["documentreferenceId"] = userNewData;
       }
     }
 
@@ -826,6 +831,13 @@ export class UpdatedemographicComponent implements OnInit, OnDestroy {
         this.displayPOAUpload = true;
       }
       self[formControlName]["documenttype"] = event.source.value;
+      if (!this.userInfoClone[formControlName]) {
+        this.userInfoClone[formControlName] = {};
+      }
+      this.userInfoClone[formControlName]["documenttype"] = event.source.value;
+      if (self[formControlName]["documentreferenceId"]) {
+        this.userInfoClone[formControlName]["documentreferenceId"] = self[formControlName]["documentreferenceId"];
+      }
     }
     this.userInputValues[formControlName] = event.source.viewValue;
   }
@@ -929,6 +941,14 @@ export class UpdatedemographicComponent implements OnInit, OnDestroy {
         "identity": this.finalUserCloneData
       }
     };
+
+    if (!request.request.identity || Object.keys(request.request.identity).length === 0) {
+      this.isLoading = false;
+      const identityMessage = this.langJson && this.langJson.genericmessage && this.langJson.genericmessage.identityRequired ? this.langJson.genericmessage.identityRequired : 'Please provide identity updates before submitting.';
+      this.showErrorPopup([{ message: identityMessage }]);
+      return;
+    }
+
     this.dataStorageService.updateuin(request).subscribe(response => {
       let eventId = response.headers.get("eventid");
       this.message = this.popupMessages.genericmessage.updateMyData.newDataUpdatedSuccessMsg.replace("$eventId", eventId).replace("$dataType", this.langJson[this.updatingtype].toLowerCase())
