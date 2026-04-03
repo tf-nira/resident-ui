@@ -21,6 +21,7 @@ on:
       - MOSIP*
       - verify
       - tf_nira_dev
+      - submit_button
 
 jobs:
   build-resident-ui:
