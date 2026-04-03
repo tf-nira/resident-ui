@@ -72,9 +72,11 @@
 											<td *ngIf="sharableAttributes['UIN']" ><label [style.font-size]="fontSize.breadcrumb" style="color: #666666;">{{sharableAttributes['UIN']['label']}}</label><br><span [style.font-size]="fontSize.paragraph" style="color: #000000; font-weight: 400;">{{sharableAttributes['UIN']['value']}}</span></td>
 											<td *ngIf="sharableAttributes['perpetualVID']"><label [style.font-size]="fontSize.breadcrumb" style="color: #666666;">{{sharableAttributes['perpetualVID']['label']}}</label><br><span [style.font-size]="fontSize.paragraph" style="color: #000000; font-weight: 400;">{{sharableAttributes['perpetualVID']['value']}}</span></td>
 										</tr> -->
-										<tr *ngIf="sharableAttributes['NIN'] || sharableAttributes['perpetualVID']" style="word-break: break-word;">
-											<td *ngIf="sharableAttributes['NIN']" ><label [style.font-size]="fontSize.breadcrumb" style="color: #666666;">{{sharableAttributes['NIN']['label']}}</label><br><span [style.font-size]="fontSize.paragraph" style="color: #000000; font-weight: 400;">{{sharableAttributes['NIN']['value']}}</span></td>
-											<td *ngIf="sharableAttributes['perpetualVID']"><label [style.font-size]="fontSize.breadcrumb" style="color: #666666;">{{sharableAttributes['perpetualVID']['label']}}</label><br><span [style.font-size]="fontSize.paragraph" style="color: #000000; font-weight: 400;">{{sharableAttributes['perpetualVID']['value']}}</span></td>
+										<tr *ngIf="sharableAttributes['NIN']" style="word-break: break-word;">
+											<td colspan='2' *ngIf="sharableAttributes['NIN']" ><label [style.font-size]="fontSize.breadcrumb" style="color: #666666;">{{sharableAttributes['NIN']['label']}}</label><br><span [style.font-size]="fontSize.paragraph" style="color: #000000; font-weight: 400;">{{sharableAttributes['NIN']['value']}}</span></td>
+										</tr>
+										<tr *ngIf="sharableAttributes['perpetualVID']" style="word-break: break-word;">
+											<td colspan='2' *ngIf="sharableAttributes['perpetualVID']"><label [style.font-size]="fontSize.breadcrumb" style="color: #666666;">{{sharableAttributes['perpetualVID']['label']}}</label><br><span [style.font-size]="fontSize.paragraph" style="color: #000000; font-weight: 400;">{{sharableAttributes['perpetualVID']['value']}}</span></td>
 										</tr>
 										<tr *ngIf="sharableAttributes['phone']" style="word-break: break-word;">
 											<td  colspan='3'><label [style.font-size]="fontSize.breadcrumb" style="color: #666666;">{{sharableAttributes['phone']['label']}}</label><br><span [style.font-size]="fontSize.paragraph" style="color: #000000; font-weight: 400;">{{sharableAttributes['phone']['value']}}</span></td>
