@@ -149,7 +149,7 @@
         "regcenter": "Find a Registration Center",
         "document": "List of Supporting Documents",
         "verify": "Verify Phone Number/ Email ID",
-        "uinservices": "UIN Services",
+        "uinservices": "NIN Services",
         "uindescription": "Residents can use these services to view, update, change, manage or share their data. They can also report an issue in case of a grievance."
     },
     "uinservices": {
