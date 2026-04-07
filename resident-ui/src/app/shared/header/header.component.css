@@ -224,3 +224,17 @@
     display:none;
   }
 } */
+
+.logout-btn {
+  background-color: #03A64A !important;
+  color: white !important;
+  margin-right: 10px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.logout-btn:hover {
+  background-color: #028a3a !important;
+}

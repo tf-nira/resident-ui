@@ -30,6 +30,12 @@
           *ngFor="let item of selectLanguagesArr" id="lang{{item.code}}" >{{item.value}}</button>
       </mat-menu>
 
+      <mat-list-item *ngIf="showLogoutBtn">
+        <button mat-raised-button class="logout-btn" (click)="showUinServicesLogoutPopup()" [style.font-size]="fontSize.paragraph">
+          {{'Logout' | translate}}
+        </button>
+      </mat-list-item>&nbsp;&nbsp;&nbsp;
+
       <mat-list-item *ngIf="isAuthorized">
         <button class="notification-btn" mat-menu-item [matMenuTriggerFor]="notificationMenu" (click)="loadNotificationData()">
           <mat-icon class="notification-icon" matBadge="{{notificationCount}}"

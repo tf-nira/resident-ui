@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
-import { Router } from "@angular/router";
+import { Router, NavigationEnd } from "@angular/router";
 import { Subscription, timer } from "rxjs";
 import { TranslateService } from '@ngx-translate/core';
 import defaultJson from "src/assets/i18n/default.json";
@@ -9,7 +9,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { LogoutService } from './../../core/services/logout.service';
 import { HeaderService } from 'src/app/core/services/header.service';
 import { AuditService } from 'src/app/core/services/audit.service';
-import { map } from 'rxjs/operators'
+import { map, filter } from 'rxjs/operators'
 import { MatDialog } from '@angular/material';
 import { DialogComponent } from 'src/app/shared/dialog/dialog.component';
 import { AuthService } from 'src/app/core/services/authservice.service';
@@ -49,6 +49,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   selectedLangData:any;
   isAuthorized:boolean = false;
   showLangDropDown:any;
+  isUinServicesPage: boolean = false;
+  routeSubscription: Subscription;
 
   constructor(
     private router: Router,
@@ -130,6 +132,36 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.activeUrl = window.location.hash
     this.selectedfontsize= localStorage.getItem('selectedfontsize')
     this.fontSizeService.setFontSize(this.selectedfontsize);
+    
+    // Initial check
+    this.checkIfUinServicesPage();
+    
+    // Subscribe to router events to detect route changes
+    this.routeSubscription = this.router.events
+      .pipe(filter(event => event instanceof NavigationEnd))
+      .subscribe((event: NavigationEnd) => {
+        this.activeUrl = window.location.hash;
+        this.checkIfUinServicesPage();
+      });
+  }
+
+  checkIfUinServicesPage(): void {
+    // Method 1: Check window.location.hash
+    const isUinFromHash = window.location.hash.includes('/uinservices');
+    
+    // Method 2: Check router.url
+    const isUinFromRouter = this.router.url.includes('uinservices');
+    
+    // Method 3: Check activeUrl property
+    const isUinFromActive = this.activeUrl && this.activeUrl.includes('uinservices');
+    
+    // Use any of the methods that returns true
+    this.isUinServicesPage = isUinFromHash || isUinFromRouter || isUinFromActive;
+    
+    console.log('isUinServicesPage:', this.isUinServicesPage);
+    console.log('Hash:', window.location.hash);
+    console.log('Router URL:', this.router.url);
+    console.log('Active URL:', this.activeUrl);
   }
 
   getNotificationInfo(){
@@ -216,6 +248,15 @@ export class HeaderComponent implements OnInit, OnDestroy {
     }
   }
 
+  // Getter method for template - always check current state
+  get showLogoutBtn(): boolean {
+    const isUinPage = window.location.href.includes('/uinservices') || 
+                      window.location.hash.includes('uinservices') || 
+                      this.router.url.includes('uinservices');
+    console.log('showLogoutBtn getter called, result:', isUinPage);
+    return isUinPage;
+  }
+
   godashboard() {
     console.log("this.authService.isAuthenticated()>>>"+this.fullName);
     if (this.fullName) {
@@ -255,6 +296,16 @@ export class HeaderComponent implements OnInit, OnDestroy {
       }
     });
     return dialogRef;
+  }
+
+  showUinServicesLogoutPopup() {
+    if (confirm("Are you sure want to leave the page. you will be logged out automatically if you press OK?")) {
+      this.auditService.audit('RP-002', 'Logout', 'RP-Logout', 'Logout', 'User clicks on "logout" button after logging in to UIN services','');
+      this.logoutService.logout();
+    } else {
+      history.pushState(null, null, window.location.href);
+      return false;
+    }
   }
 
   showMessage(message:any) {
@@ -341,6 +392,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.subscription.unsubscribe();
     this.clickEventSubscription.unsubscribe();
+    if (this.routeSubscription) {
+      this.routeSubscription.unsubscribe();
+    }
     //window.removeEventListener('scroll', this.scroll, true);
   }
 

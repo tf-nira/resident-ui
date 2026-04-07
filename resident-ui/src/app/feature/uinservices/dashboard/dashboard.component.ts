@@ -69,20 +69,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
   PopState(event) {
     if (window.location.hash.includes("uinservices")) {
       if(window.location.hash.split("#")[1] === "/uinservices/dashboard"){
-        this.showRedirectPopup();
+        history.pushState(null, null, window.location.href);
       }
     } else {
-      this.showRedirectPopup();
-    }
-  }
-
-  showRedirectPopup(){
-    if (confirm("Are you sure want to leave the page. you will be logged out automatically if you press OK?")) {
-      this.auditService.audit('RP-002', 'Logout', 'RP-Logout', 'Logout', 'User clicks on "logout" button after logging in to UIN services','');
-      this.logoutService.logout();
-    } else {
       history.pushState(null, null, window.location.href);
-      return false;
     }
   }
 
