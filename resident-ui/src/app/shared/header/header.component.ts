@@ -299,14 +299,57 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   showUinServicesLogoutPopup() {
-    if (confirm("Are you sure want to leave the page. you will be logged out automatically if you press OK?")) {
-      this.auditService.audit('RP-002', 'Logout', 'RP-Logout', 'Logout', 'User clicks on "logout" button after logging in to UIN services','');
-      this.logoutService.logout();
-    } else {
-      history.pushState(null, null, window.location.href);
-      return false;
+  this.auditService.audit('RP-002', 'Logout', 'RP-Logout', 'Logout', 'User clicks on "logout" button after logging in to UIN services', '');
+  const dialogRef = this.dialog.open(DialogComponent, {
+    width: '500px',
+    disableClose: true,
+    data: {
+      case: 'MESSAGE',
+      title: this.popupMessages && this.popupMessages.genericmessage
+        ? this.popupMessages.genericmessage.warningLabel
+        : 'Warning',
+
+      message: this.popupMessages && this.popupMessages.genericmessage
+        ? this.popupMessages.genericmessage.logoutconfirmMessage
+        : 'Are you sure you want to logout?',
+
+      clickYesToProceed: this.popupMessages && this.popupMessages.genericmessage
+        ? this.popupMessages.genericmessage.clickYesToProceed
+        : '',
+
+      yesBtnFor: "logOutBtn",
+
+      btnTxt: this.popupMessages && this.popupMessages.genericmessage
+        ? this.popupMessages.genericmessage.yesButton
+        : 'Yes',
+
+      isYes: "Yes",
+
+      btnTxtNo: this.popupMessages && this.popupMessages.genericmessage
+        ? this.popupMessages.genericmessage.noButton
+        : 'No',
+
+      isNo: "No"
     }
-  }
+  });
+   dialogRef.afterClosed().subscribe(() => {
+    if (document.activeElement instanceof HTMLElement) {
+      document.activeElement.blur();  // removes focus from logout button
+    }
+  });
+
+  return dialogRef;
+}
+
+  // showUinServicesLogoutPopup() {
+  //   if (confirm("Are you sure want to leave the page. you will be logged out automatically if you press OK?")) {
+  //     this.auditService.audit('RP-002', 'Logout', 'RP-Logout', 'Logout', 'User clicks on "logout" button after logging in to UIN services','');
+  //     this.logoutService.logout();
+  //   } else {
+  //     history.pushState(null, null, window.location.href);
+  //     return false;
+  //   }
+  // }
 
   showMessage(message:any) {
     setTimeout(() => {
