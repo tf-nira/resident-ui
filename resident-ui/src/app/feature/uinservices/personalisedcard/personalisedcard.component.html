@@ -22,7 +22,7 @@
 							<td [style.font-size]="fontSize.checkBoxText" *ngIf="data.maskRequired" class="each-masked-property" style="width:60%;">
 								<mat-checkbox [disabled]="!data.checked"  id="mask{{data.attributeName}}" (click)="captureCheckboxValue($event, data,data.maskAttributeName)">{{data.maskRequiredLabel[langCode]}}</mat-checkbox>
 							</td>
-							<td *ngIf="data.formatRequired" style="width:60%">
+							<td *ngIf="data.formatRequired && data.attributeName !== 'dateOfBirth'" style="width:60%">
 								<button [style.font-size]="fontSize.checkBoxText" [disabled]="!data.checked" mat-button [matMenuTriggerFor]="basic">{{data.formatOptionLabel[langCode]}}<mat-icon>keyboard_arrow_down</mat-icon></button>
 								<mat-menu #basic="matMenu" class="each-lang-card" >
 									<ng-container *ngFor="let data1 of data.formatOption[langCode];">
@@ -50,7 +50,7 @@
 							</span>
 							</td>
               <td [ngStyle]="{'float': langCode === 'ara' ? 'left' : 'right' }">
-								<img style="height: 50px; width: auto;" alt="logo" src="/assets/nira_logo.png"/></td>
+								<img id="card_logo" style="height: 50px; width: auto;" alt="logo" src="/assets/nira_logo.png"/></td>
 						</tr>
 						<tr *ngIf="dataDisplay['dateOfBirth'] || dataDisplay['gender']">
 							<td *ngIf="dataDisplay['dateOfBirth']"><label [style.font-size]="fontSize.breadcrumb"  style="color: #666666;">{{dataDisplay['dateOfBirth']['label']}}</label><br><span [style.font-size]="fontSize.paragraph"  class="detailinfo">{{dataDisplay['dateOfBirth']['value']}}</span></td>
