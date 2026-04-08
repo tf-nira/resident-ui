@@ -134,7 +134,7 @@ export class PersonalisedcardComponent implements OnInit, OnDestroy {
       this.schema.forEach(data =>{
         this.valuesSelected.push(data.attributeName)
       })
-    });   
+    });
   }
 
   getUserInfo() {
@@ -168,7 +168,7 @@ export class PersonalisedcardComponent implements OnInit, OnDestroy {
    // Method to create preview data with formates
    createCheckedVal(data:any){
     let finalvalue = "";
-    
+
     data.formatOption[this.langCode].forEach(item => {
       if (item.value !== data.attributeName && item.checked) {
         if (this.userInfo[item.value])
@@ -336,11 +336,62 @@ export class PersonalisedcardComponent implements OnInit, OnDestroy {
     this.convertpdf();
   }
 
+  getBase64Image(img: HTMLImageElement) {
+    const canvas = document.createElement("canvas");
+    // Use naturalWidth/Height to get the full image resolution
+    canvas.width = img.naturalWidth;
+    canvas.height = img.naturalHeight;
+    const ctx = canvas.getContext("2d");
+    ctx.drawImage(img, 0, 0);
+    return canvas.toDataURL("image/png");
+  }
+
   convertpdf() {
     this.isLoading = true;
     let self = this;
-    let elementHtml = document.getElementById('seleted-details-card').outerHTML;
-    this.buildHTML = `<!DOCTYPE html><html><head><style>.seleted-details-card { min-height: 210px; max-width: 369px; border-style: solid;border-width: 2px;border-color: #BCBCBC; border-radius: 5pt; padding:5px;overflow:hidden;}table{table-layout: fixed; width: 100%;}.detailinfo{color: #000000; font-weight: 400; font-size: 14px;width:100%}</style></head><body>` + elementHtml + `</body></html>`;
+    const cardElement = document.getElementById('seleted-details-card');
+    const logoImg = cardElement.querySelector('#card_logo') as HTMLImageElement;
+    let originalSrc = "";
+    if (logoImg) {
+      originalSrc = logoImg.src;
+      logoImg.src = this.getBase64Image(logoImg);
+    }
+    let elementHtml = cardElement.outerHTML;
+    if (logoImg) {
+      logoImg.src = originalSrc;
+    }
+    let baseUrl = window.location.origin;
+    this.buildHTML = `<!DOCTYPE html><html><head><base href="${baseUrl}/">
+    <style>
+      .seleted-details-card {
+        min-height: 210px;
+        width: 369px; /* Fixed card width */
+        border: 2px solid #BCBCBC;
+        border-radius: 5pt;
+        padding: 8px;
+        overflow: hidden;
+        background-color: white;
+        font-family: sans-serif;
+      }
+      table {
+        width: 100%;
+        table-layout: fixed; /* Crucial: ensures columns follow percentages */
+        border-collapse: collapse;
+      }
+      td { vertical-align: top; padding: 2px; }
+      .detailinfo { color: #000000; font-weight: 400; font-size: 13px; line-height: 1.2; }
+      label { color: #666666; font-size: 11px; }
+      #card_logo {
+        width: 75px;
+        height: 45px;
+        object-fit: contain;
+        display: block;
+        margin-left: 75px;
+      }
+      .logo-cell {
+        text-align: right;
+      }
+    </style></head><body>` + elementHtml + `</body></html>`;
     const request = {
       "id": this.appConfigService.getConfig()["mosip.resident.download.personalized.card.id"],
       "version": this.appConfigService.getConfig()["resident.vid.version.new"],
