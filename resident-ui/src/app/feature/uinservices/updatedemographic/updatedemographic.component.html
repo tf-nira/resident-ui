@@ -15,7 +15,7 @@
   <mat-card *ngIf="userInfo && !showPreviewPage && (buildJSONData | json) != '{}'" [ngStyle]="{'padding-bottom' : (keyboardService.isOpened) ? '200px' : ''}">
     <h1 [style.font-size]="fontSize.heading" style="font-weight: 600;color: #505050;">{{langJson.title}}</h1>
     <mat-tab-group animationDuration="0ms" [selectedIndex]="matTabIndex" (selectedTabChange)="logChange($event)">
-      <mat-tab class="mat-tab-local" label="{{'updatedemographic.identity' | translate}}">
+      <mat-tab *ngIf="false" class="mat-tab-local" label="{{'updatedemographic.identity' | translate}}">
         <h3 [style.font-size]="fontSize.headingForUIN" class="tab-headings">{{'updatedemographic.identityHeading' | translate}}</h3>
         <table class="each-tab-group-main-table" id="identityTab">
           <tr class="table-main-card">
@@ -85,7 +85,7 @@
                                 </div>
                                 <div [style.font-size]="fontSize.lableText" style="padding: 4px;" *ngIf="langJson && attributeUpdateCountMaxLimit"
                                   [ngClass]="langCode === 'ara' ? 'dir-rtl' :'dir-ltl'">
-                                  <span 
+                                  <span
                                     style="display: block; font-weight: 600;">{{langJson.remainingAttems.replace("$remainingAttems",
                                     attributeUpdateCountRemainLimit[field.attributeName])}}</span>
                                   <span style="display: block;">{{langJson.maxAttems.replace("$MaxAttems",
@@ -165,7 +165,7 @@
                               <div style="margin: 0 3px 0 -2px;"><p style="display: inline;" [style.font-size]="fontSize.paragraph" *ngFor="let eachLang of getUserPerfLang; let langI = index">
                                 {{field.labelName[eachLang][1]}}
                                 <span style="margin-left: -3px;" *ngIf="langI < getUserPerfLang?.length - 1">/</span>
-                              </p></div> 
+                              </p></div>
                             </td>
                           </tr>
                           <tr *ngFor="let item of buildJSONData[field.attributeName], let i = index">
@@ -454,7 +454,7 @@
                                     </g>
                                     <path id="Path_989" data-name="Path 989" d="M0,24.042H24V0H0Z" fill="none" />
                                   </svg>
-                                  <span [style.font-size]="fontSize.lableText" 
+                                  <span [style.font-size]="fontSize.lableText"
                                     style="margin-top: 4px;padding-left: 5px; font-weight: 600;">{{langJson.uploadImage}}</span>
                                 </label>
                                 <h3 style="margin-right: 8px;" [style.font-size]="fontSize.lableText">{{langJson.or}}</h3>
@@ -534,7 +534,7 @@
             id="previewBtn">{{langJson.preview}}</button>
         </div>
       </mat-tab>
-      <mat-tab label="{{'updatedemographic.address' | translate}}">
+      <mat-tab *ngIf="false" label="{{'updatedemographic.address' | translate}}">
         <h3 [style.font-size]="fontSize.headingForUIN" class="tab-headings">{{'updatedemographic.addressHeading' | translate}}</h3>
         <div class="address-page">
           <table class="file-Upload-card" id="addressTab">
