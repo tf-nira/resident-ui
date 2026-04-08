@@ -1001,12 +1001,17 @@
                 </div>
                 <div class="search-input-card" *ngIf="field.attributeName === 'phone'">
                   <input [style.font-size]="fontSize.paragraph" class="input" [value]="userIdPhone" matInput type="text" #{{field.attributeName}}
-                    id="{{field.attributeName}}" (input)="captureContactValue($event, field)"
+                    id="{{field.attributeName}}" (input)="captureContactValue($event, field); phoneTooltip.show()"
+                    (focus)="phoneTooltip.show()"
+                    (blur)="phoneTooltip.hide()"
                     [placeholder]="field.placeHolder[langCode]"
                     (blur)="captureContactValue($event, field)"
                     (focus)="captureVirtualKeyboard(field.attributeName, buildJSONData[field.attributeName].index)"
                     (click)="isUpdatedataInProgress($event, 'textField')"
-                    #keyboardRef />
+                    #keyboardRef
+                    matTooltip="Phone number update is applicable only for Ugandan numbers. Please add ‘0’ at the beginning for Uganda numbers."
+                    matTooltipPosition="below"
+                    #phoneTooltip="matTooltip"/>
                   <i matSuffix class="material-icons mat-keyboard-icon"
                     (click)="openKeyboard(field.attributeName)">keyboard</i>
                 </div>
