@@ -32,6 +32,13 @@
   /* UX enhancement end */
 }
 
+.header-title {
+  font-size: 34px;
+  font-weight: 600;
+  color: white;
+  margin-left: 16px;
+}
+
 .spacer {
   flex: 1 1 auto;
 }
