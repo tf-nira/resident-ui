@@ -175,7 +175,7 @@ export class UpdatedemographicComponent implements OnInit, OnDestroy {
       .subscribe(response => {
         this.langJson = response.updatedemographic
         this.popupMessages = response;
-        this.matTabLabel = response.updatedemographic.identity;
+        this.matTabLabel = response.updatedemographic.contact;
       });
 
     await this.getMappingData();
@@ -660,7 +660,7 @@ export class UpdatedemographicComponent implements OnInit, OnDestroy {
   captureValue(event: any, formControlName: string, language: string, currentValue: any) {
     if(!this.firstInputLang[formControlName] && event.target.value)
       this.firstInputLang[formControlName] = language;
-  
+
     let userNewData = event.target.value.trim();
     let self = this;
     if (userNewData === "") {
@@ -703,7 +703,7 @@ export class UpdatedemographicComponent implements OnInit, OnDestroy {
           }else if(!/^[A-Za-z]+(\s[A-Za-z]+)*$/.test(userNewData)){
             this.enteredOnlyNumbers = true;
           }
-          
+
         }
       } else {
         self[formControlName]["documentreferenceId"] = userNewData;
@@ -734,7 +734,7 @@ export class UpdatedemographicComponent implements OnInit, OnDestroy {
     genders[language].forEach(item => {
       currentValueCode = item.value === currentValue ? item.code : currentValue
     });
-  
+
     let self = this;
     if (formControlName !== "proofOfIdentity") {
       if (event.value !== currentValueCode) {
@@ -766,7 +766,7 @@ export class UpdatedemographicComponent implements OnInit, OnDestroy {
   captureAddressValue(event: any, formControlName: string, language: string, currentValue: string) {
     if(!this.firstInputLang[formControlName] && event.target.value)
       this.firstInputLang[formControlName] = language;
-    
+
     let self = this;
     let userNewData = event.target.value.trim();
     if (userNewData === "") {
@@ -833,13 +833,13 @@ export class UpdatedemographicComponent implements OnInit, OnDestroy {
   // captureContactValue(event: any, formControlName: any) {
   //   this.userId = event.target.value.trim();
   //   this.contactTye = formControlName.attributeName;
-    
+
   //   if(new RegExp(formControlName.validators[0].validator).test(this.userId)){
   //     this.sendOtpDisable = false;
   //   }else{
   //     this.sendOtpDisable = true;
   //   }
-    
+
   //   if(formControlName.attributeName === "email"){
   //     this.userIdEmail = this.userId
   //   }else{
@@ -849,7 +849,7 @@ export class UpdatedemographicComponent implements OnInit, OnDestroy {
 
   captureContactValue(event: any, formControlName: any) {
   const value = event.target.value.trim();
-    
+
   this.userId = value;
   this.contactTye = formControlName.attributeName;
 
@@ -867,7 +867,7 @@ export class UpdatedemographicComponent implements OnInit, OnDestroy {
     console.warn("No regex found for:", formControlName.attributeName);
   }
     this.sendOtpDisable = !isValid;
-  
+
   if (formControlName.attributeName === "email") {
     this.userIdEmail = value;
   } else if (formControlName.attributeName === "phone") {
@@ -1020,7 +1020,7 @@ export class UpdatedemographicComponent implements OnInit, OnDestroy {
       this.isValidFileFormatPOI = false;
       this.prepareFilesList(files, type);
     }
-    
+
   }
 
   /**
@@ -1099,7 +1099,7 @@ export class UpdatedemographicComponent implements OnInit, OnDestroy {
                   this.uploadFilesSimulator(index + 1, type);
                 } else {
                   this.files[index].progress += 20;
-                }   
+                }
               }
             }, 200);
           }
