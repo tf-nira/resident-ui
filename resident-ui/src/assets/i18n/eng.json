@@ -1,7 +1,7 @@
 {
     "menuItems": [
         {
-            "displayName": "NIN Services",
+            "displayName": "NIN/AIN Services",
             "displaydescription": "Residents can use these services to view, update, manage or share their data. They can also report an issue in case of a grievance.",
             "availableServicesDescription": "Following are the available services:",
             "icon": "./assets/icons/iconfont/uin_services.svg",
@@ -107,7 +107,7 @@
             ]
         },
         {
-            "displayName": "Get My NIN",
+            "displayName": "Get My NIN/AIN",
             "icon": "./assets/icons/iconfont/get_my_uin.svg",
             "activeIcon": "./assets/icons/iconfont/get_my_uin_active.svg",
             "route": "getuin",
@@ -117,7 +117,7 @@
             "id":"getMyUIN",
             "subMenus": [
                 {
-                    "displayName": "Click here to download your NIN card or to know the status of your NIN"
+                    "displayName": "Click here to download your NIN/AIN card or to know the status of your NIN/AIN"
                 }
             ]
         },
@@ -154,18 +154,18 @@
     },
     "uinservices": {
         "login": "Login",
-        "title": "Enter your AID",
-        "description": "Enter your AID/NIN/VID to proceed.",
+        "title": "Enter your AID/RID",
+        "description": "Enter your AID/RID to proceed.",
         "plaginLabel": "I'm not a robot",
         "buttonText": "Send OTP",
         "home": "Home",
         "enterHere": "Enter Here",
-        "label": "Get My NIN",
+        "label": "Get My NIN/AIN",
         "icon": "assets/images/info_black_24dp (1).png"
     },
     "downloadUin": {
         "home": "Home",
-        "label": "Download NIN",
+        "label": "Download NIN/AIN",
         "subTitle": "The OTP will expire in",
         "subTitle2": "The OTP has expired Please click Resend OTP.",
         "inputLabel": "Enter One Time Password (OTP)",
@@ -511,13 +511,13 @@
         "uinTitleDescription2": "Your NIN generation against the AID: $AID has failed.",
         "requestMsg": "Please try again after a few days.",
         "requestMsg2": "For further information, please visit the nearest registration center.",
-        "UINCardStatus": "UIN Card Status",
+        "UINCardStatus": "NIN Card Status",
         "statusTime": "Completion Expected Date : $date",
         "statusStages": {
             "REQUEST_RECEIVED": "Request received",
             "VALIDATION_STAGE": "Validation stage",
             "VERIFICATION_STAGE": "Verification stage",
-            "UIN_GENERATION_STAGE": "UIN generation stage",
+            "UIN_GENERATION_STAGE": "NIN generation stage",
             "CARD_READY_TO_DOWNLOAD": "Card ready to download"
         },
         "trackDetailsHeading": "Tracking Details"
@@ -654,9 +654,9 @@
         "readMoreLabel": "Read More...",
         "readLessLabel": "Read Less...",
         "revokevid": {
-            "Perpetual": "A perpetual VID has no expiry date and no limit on the number of transactions that can be performed using this VID. One UIN can be associated with only $instancesVID perpetual $VID at a time.",
-            "Temporary": "A temporary VID is valid for $expiryTime minutes and only $transactionLimit transaction can be performed using this VID. One UIN can be associated with $instancesVID temporary $VID at a time.",
-            "OneTimeUse": "A one-time VID's has no expiry date but only $transactionLimit transaction can be performed using this VID. One UIN can be associated with $instancesVID one-time $VID at a time."
+            "Perpetual": "A perpetual VID has no expiry date and no limit on the number of transactions that can be performed using this VID. One NIN can be associated with only $instancesVID perpetual $VID at a time.",
+            "Temporary": "A temporary VID is valid for $expiryTime minutes and only $transactionLimit transaction can be performed using this VID. One NIN can be associated with $instancesVID temporary $VID at a time.",
+            "OneTimeUse": "A one-time VID's has no expiry date but only $transactionLimit transaction can be performed using this VID. One NIN can be associated with $instancesVID one-time $VID at a time."
         },
         "secureMyID": {
             "Email OTP Authentication": "On locking/unlocking 'Email OTP Authentication', any Authentication attempt made using an email OTP will be disabled/ enabled.",
@@ -666,18 +666,18 @@
             "Iris Authentication": "On locking/unlocking 'Iris Authentication', any Authentication attempt made using an iris will be disabled/ enabled.",
             "Face Authentication": "On locking/unlocking 'Face Authentication', any Authentication attempt made using face will be disabled/ enabled."
         },
-        "trackStatus": "Please enter the EID (Event ID) associated with the event that you want to track. It is important that the EID you enter is associated with the logged-in UIN.",
-        "getUin": "An AID is your $AID-digit Application ID which was provided to you after registration. A UIN is your $UIN-digit Unique Identity Number. A VID is your $VID-digit Virtual ID.",
-        "verifyChannel": "A UIN is your 10-digit Unique Identity Number. VID is your 16-digit Virtual ID."
+        "trackStatus": "Please enter the EID (Event ID) associated with the event that you want to track. It is important that the EID you enter is associated with the logged-in NIN.",
+        "getUin": "An AID is your $AID-digit Application ID which was provided to you after registration. A NIN is your $UIN-digit Unique Identity Number. A VID is your $VID-digit Virtual ID.",
+        "verifyChannel": "A NIN is your 10-digit Unique Identity Number. VID is your 16-digit Virtual ID."
     },
     "serverErrors": {
         "IDA-MLC-009": "No registered email ID/ phone number found with the entered NIN/AIN/VID. To add an email ID/ phone number, visit the nearest registration center.",
         "IDA-OTA-002": "No registered email ID/ phone number found with the entered NIN/AIN/VID. To add an email ID/ phone number, visit the nearest registration center.",
-        "IDA-MLC-018": "Invalid NIN/ AID/ VID entered. Please enter a valid NIN/ AID/ VID and try again.",
+        "IDA-MLC-018": "Invalid NIN/ AIN/ VID entered. Please enter a valid NIN/ AIN/ VID and try again.",
         "RES-SER-422": "Invalid OTP entered. Please try again with a valid OTP.",
         "RES-SER-410": {
-            "individualIdError": "Invalid NIN/ AID/ VID entered. Please enter a valid NIN/ AID/ VID and try again.",
-            "individualId": "Invalid NIN/ AID/ VID entered. Please enter a valid NIN/ AID/ VID and try again.",
+            "individualIdError": "Invalid NIN/ AIN/ VID entered. Please enter a valid NIN/ AID/ VID and try again.",
+            "individualId": "Invalid NIN/ AIN/ VID entered. Please enter a valid NIN/ AID/ VID and try again.",
             "EMAIL": "The email ID you have entered is invalid. Please enter a valid email ID.",
             "PHONE": "The phone number you have entered is invalid. Please enter a valid phone number.",
             "eventId": "The event ID you have entered is invalid. Please enter a valid event ID",
@@ -692,7 +692,7 @@
         "RES-SER-522": "Invalid NIN/AIN/VID entered. Please enter a valid NIN/AIN/VID and try again.",
         "RES-SER-405": "Maximum allowed VIDs are active. Deactivate VID(s) to create a new one.",
         "RES-SER-511": "The entered EID is not associated with the NIN/AIN/VID used to log in.",
-        "RES-SER-449": "Invalid NIN/ AID/ VID entered. Please enter a valid NIN/ AID/ VID and try again.",
+        "RES-SER-449": "Invalid NIN/ AIN/ VID entered. Please enter a valid NIN/ AIN/ VID and try again.",
         "RES-SER-414": "Comment section cannot be blank. Please enter your comments in order to proceed.",
         "RES-SER-471": "This VID cannot be revoked since you have logged in using the same VID.",
         "RES-SER-513": "New VID cannot be generated since you have logged with same VID.",
@@ -705,15 +705,15 @@
         "RES-SER-456": "AID not found. Please try again later.",
         "RES-SER-515": "Please enter letters/numbers in order to share.",
         "RES-SER-425": "While generating otp error is occured.",
-        "RES-SER-514": "Invalid NIN/VID entered. Please enter a valid NIN/VID and try again.",
-        "IDA-MLC-019": "otp-email Auth Type is Locked for the UIN.",
+        "RES-SER-514": "Invalid NIN/AIN/VID entered. Please enter a valid NIN/AIN/VID and try again.",
+        "IDA-MLC-019": "otp-email Auth Type is Locked for the NIN/AIN.",
         "RES-SER-509": "The card is not ready for download.",
-        "RES-SER-418": "Invalid NIN/ AID/ VID entered. Please enter a valid NIN/ AID/ VID and try again.",
+        "RES-SER-418": "Invalid NIN/ AIN/ VID entered. Please enter a valid NIN/ AIN/ VID and try again.",
         "RES-OTP-006": "Invalid OTP entered. Please try again with a valid OTP.",
         "RES-SER-406": "Unable to access API resource.",
         "RES-SER-523": "Callback URL is not available for Regproc workflow completed event",
-        "RES-SER-524": "Not allowed to update NIN as previous packet is pending. To proceed further please discard it.",
-        "RES-SER-525": "Not allowed to update NIN as previous packet is pending and it cannot be cancelled.",
+        "RES-SER-524": "Not allowed to update NIN/AIN as previous packet is pending. To proceed further please discard it.",
+        "RES-SER-525": "Not allowed to update NIN/AIN as previous packet is pending and it cannot be cancelled.",
         "RES-SER-526": "Update count limit for the attributes exceeded:- %s",
         "RES-SER-470": "No Record(s) found",
         "RES-SER-401": "Base exception.",
