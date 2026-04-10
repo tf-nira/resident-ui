@@ -49,9 +49,11 @@
 								<span *ngIf="dataDisplay['fullName']"><label [style.font-size]="fontSize.breadcrumb"  style="color: #666666;">{{dataDisplay['fullName']['label']}}</label><br><span [style.font-size]="fontSize.paragraph"  class="detailinfo">{{dataDisplay['fullName']['value']}}</span>
 							</span>
 							</td>
-              <td [ngStyle]="{'float': langCode === 'ara' ? 'left' : 'right' }">
-								<img id="card_logo" style="height: 50px; width: auto;" alt="logo" src="/assets/nira_logo.png"/></td>
-						</tr>
+              <td style="width: 35%; vertical-align: top;"
+                [ngStyle]="{'text-align': langCode === 'ara' ? 'left' : 'right'}">
+                <img id="card_logo" style="height: 50px; width: auto; display: block; margin-left: auto; margin-right: 0;"
+                    alt="logo" src="/assets/nira_logo.png"/>
+            </td>
 						<tr *ngIf="dataDisplay['dateOfBirth'] || dataDisplay['gender']">
 							<td *ngIf="dataDisplay['dateOfBirth']"><label [style.font-size]="fontSize.breadcrumb"  style="color: #666666;">{{dataDisplay['dateOfBirth']['label']}}</label><br><span [style.font-size]="fontSize.paragraph"  class="detailinfo">{{dataDisplay['dateOfBirth']['value']}}</span></td>
 							<td *ngIf="dataDisplay['gender']"><label [style.font-size]="fontSize.breadcrumb"  style="color: #666666;">{{dataDisplay['gender']['label']}}</label><br> <span [style.font-size]="fontSize.paragraph"  class="detailinfo">{{dataDisplay['gender']['value']}}</span></td>
