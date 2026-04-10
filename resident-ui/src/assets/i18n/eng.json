@@ -107,7 +107,7 @@
             ]
         },
         {
-            "displayName": "Get My NIN",
+            "displayName": "Get My NIN/AIN",
             "icon": "./assets/icons/iconfont/get_my_uin.svg",
             "activeIcon": "./assets/icons/iconfont/get_my_uin_active.svg",
             "route": "getuin",
