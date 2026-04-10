@@ -369,9 +369,10 @@ export class PersonalisedcardComponent implements OnInit, OnDestroy {
         border: 2px solid #BCBCBC;
         border-radius: 5pt;
         padding: 8px;
-        overflow: hidden;
+        overflow: visible;
         background-color: white;
         font-family: sans-serif;
+        box-sizing: border-box;
       }
       table {
         width: 100%;
@@ -382,14 +383,19 @@ export class PersonalisedcardComponent implements OnInit, OnDestroy {
       .detailinfo { color: #000000; font-weight: 400; font-size: 13px; line-height: 1.2; }
       label { color: #666666; font-size: 11px; }
       #card_logo {
-        width: 75px;
-        height: 45px;
+        height: 50px;
+        width: auto;
         object-fit: contain;
         display: block;
-        margin-left: 75px;
+        max-width: 100%;
+        margin-left: auto;
+        margin-right: 0;
       }
       .logo-cell {
+        width: 35%;
         text-align: right;
+        vertical-align: top;
+        overflow: visible;
       }
     </style></head><body>` + elementHtml + `</body></html>`;
     const request = {
