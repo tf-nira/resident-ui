@@ -266,6 +266,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
       console.log("session doesn't exist>>>");
       this.router.navigate(["dashboard"]);
     }
+    this.authService.isAuthenticated().subscribe(isAuth => {
+      if (isAuth) {
+        this.router.navigate(["uinservices/dashboard"]);
+      } else {
+        this.router.navigate(["dashboard"]);
+      }
+    });
   }
 
   onHome() {
