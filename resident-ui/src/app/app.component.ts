@@ -43,14 +43,15 @@ export class AppComponent {
   title = 'resident-ui';
   subscriptions: Subscription[] = [];
   previousUrl: string;
-  primaryLangCode: string = localStorage.getItem("langCode");
+  primaryLangCode: string = localStorage.getItem("langCode")||'eng';
   sitealignment;
   currentRoute: string;
   agent:any = window.navigator.userAgent.toLowerCase();
+  isready: boolean = false;
 
   constructor(
     private appConfigService: AppConfigService,
-    private autoLogout: AutoLogoutService, 
+    private autoLogout: AutoLogoutService,
     private router: Router,
     private logoutService: LogoutService,
     private auditService: AuditService,
@@ -124,33 +125,40 @@ export class AppComponent {
     //       }
     //     }
     // });
-    
+
     this.appConfigService.getConfig();
     if (this.primaryLangCode === "ara") {
       localStorage.setItem('direction','rtl')
     }else{
-      localStorage.setItem('direction','ltr')
+      if (!localStorage.getItem('direction')) {
+        localStorage.setItem('direction', 'ltr');
+      }
     }
     this.sitealignment = localStorage.getItem('direction');
     document.body.dir = this.sitealignment;
   }
-  
-  ngOnInit() { 
+
+  ngOnInit() {
     if(!localStorage.getItem("selectedfontsize")){
       localStorage.setItem("selectedfontsize", "14");
     }
-    
-    this.dateAdapter.setLocale(defaultJson.keyboardMapping[this.primaryLangCode]);
-    this.router.routeReuseStrategy.shouldReuseRoute = function(){
+
+   if (defaultJson.keyboardMapping && defaultJson.keyboardMapping[this.primaryLangCode]) {
+      this.dateAdapter.setLocale(defaultJson.keyboardMapping[this.primaryLangCode]);
+    } else {
+      this.dateAdapter.setLocale('en-GB'); // Standard fallback
+    }
+    this.router.routeReuseStrategy.shouldReuseRoute = function() {
       return false;
     };
 
     this.dataStorageService.isAuthenticated().subscribe((response) => {
+      this.isready = true;
       if(response){
         if(response["response"]){
           if (window.location.href.includes('uinservices')) {
           }else{
-            this.router.navigate(['uinservices/dashboard']); 
+            this.router.navigate(['uinservices/dashboard']);
           }
         }else{
           if(window.location.href.includes('error=invalid_transaction')){
@@ -162,6 +170,7 @@ export class AppComponent {
           };
         }
       }else{
+        this.isready = true;
         this.router.navigate(['dashboard']);
       }
     });
