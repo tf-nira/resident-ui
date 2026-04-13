@@ -47,7 +47,7 @@ export class AppComponent {
   sitealignment;
   currentRoute: string;
   agent:any = window.navigator.userAgent.toLowerCase();
-  isready: boolean = false;
+  isready: boolean = false; // Added flag
 
   constructor(
     private appConfigService: AppConfigService,
@@ -130,7 +130,7 @@ export class AppComponent {
     if (this.primaryLangCode === "ara") {
       localStorage.setItem('direction','rtl')
     }else{
-      if (!localStorage.getItem('direction')) {
+     if (!localStorage.getItem('direction')) {
         localStorage.setItem('direction', 'ltr');
       }
     }
@@ -139,48 +139,55 @@ export class AppComponent {
   }
 
   ngOnInit() {
-    if(!localStorage.getItem("selectedfontsize")){
+    if (!localStorage.getItem("selectedfontsize")) {
       localStorage.setItem("selectedfontsize", "14");
     }
-
-   if (defaultJson.keyboardMapping && defaultJson.keyboardMapping[this.primaryLangCode]) {
-      this.dateAdapter.setLocale(defaultJson.keyboardMapping[this.primaryLangCode]);
-    } else {
-      this.dateAdapter.setLocale('en-GB'); // Standard fallback
-    }
-    this.router.routeReuseStrategy.shouldReuseRoute = function() {
-      return false;
-    };
-
-    this.dataStorageService.isAuthenticated().subscribe((response) => {
-      this.isready = true;
-      if(response){
-        if(response["response"]){
-          if (window.location.href.includes('uinservices')) {
-          }else{
-            this.router.navigate(['uinservices/dashboard']);
-          }
-        }else{
-          if(window.location.href.includes('error=invalid_transaction')){
-            this.router.navigate(['error']);
-          }else{
-            if (window.location.href.includes('uinservices')) {
-              this.router.navigate(['dashboard']);
-            }
-          };
-        }
-      }else{
-        this.isready = true;
-        this.router.navigate(['dashboard']);
+    try {
+      if (defaultJson.keyboardMapping && defaultJson.keyboardMapping[this.primaryLangCode]) {
+        this.dateAdapter.setLocale(defaultJson.keyboardMapping[this.primaryLangCode]);
+      } else {
+        this.dateAdapter.setLocale('en-GB');
       }
-    });
-    if(window.location.href.includes('error=invalid_transaction')){
-      this.router.navigate(['error']);
+    } catch (e) {
+      this.dateAdapter.setLocale('en-GB');
     }
+    this.isready = true;
+    this.checkAuthentication();
 
     this.subscriptions.push(this.autoLogout.currentMessageAutoLogout.subscribe(() => {}));
     this.autoLogout.changeMessage({ timerFired: false });
     this.routerType();
+  }
+
+  private checkAuthentication() {
+    this.dataStorageService.isAuthenticated().subscribe(
+      (response) => {
+        if (response && response["response"]) {
+          // If already on uinservices, stay there, otherwise go to dashboard
+          if (!window.location.href.includes('uinservices')) {
+            this.router.navigate(['uinservices/dashboard']);
+          }
+        } else {
+          // Not authenticated
+          this.handleNotAuthenticated();
+        }
+      },
+      (error) => {
+        // Error in auth service (likely after logout)
+        this.handleNotAuthenticated();
+      }
+    );
+  }
+
+  private handleNotAuthenticated() {
+    if (window.location.href.includes('error=invalid_transaction')) {
+      this.router.navigate(['error']);
+    } else {
+      // If we are deep inside uinservices but not authed, kick back to main dashboard
+      if (window.location.href.includes('uinservices')) {
+        this.router.navigate(['dashboard']);
+      }
+    }
   }
 
   routerType() {
