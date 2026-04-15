@@ -16,7 +16,7 @@
                     "displayName": "View My History",
                     "icon": "assets/images/viewhistory.png",
                     "route": "uinservices/viewhistory",
-                    "description": "View the history of all the transactions associated with your logged-in NIN/AIN/VID. You can also view their details and if any unaccounted entry is found, a report can be raised against the same.",
+                    "description": "View the history of all the transactions associated with your logged-in NIN/AIN. You can also view their details and if any unaccounted entry is found, a report can be raised against the same.",
                     "auditEventId": "ADM-004"
                 },
                 {
@@ -37,7 +37,7 @@
                     "displayName": "Track My Requests",
                     "icon": "assets/images/trackservicerequest.png",
                     "route": "uinservices/trackservicerequest",
-                    "description": " Track the status of an event ID (EID) associated with the logged-in NIN/AIN/VID. You can also view the detailed information about the entered EID.",
+                    "description": " Track the status of an event ID (EID) associated with the logged-in NIN/AIN. You can also view the detailed information about the entered EID.",
                     "auditEventId": "ADM-004"
                 },
                 {
@@ -58,7 +58,7 @@
                     "displayName": "Update My Data",
                     "icon": "assets/images/updatedemographic.png",
                     "route": "uinservices/updatedemographic",
-                    "description": "Residents can update the already existing data associated with their NIN/AIN/VID. The data that can be updated includes phone number and email ID.",
+                    "description": "Residents can update the already existing data associated with their NIN/AIN. The data that can be updated includes phone number and email ID.",
                     "auditEventId": "ADM-004"
                 }
             ]
@@ -461,7 +461,7 @@
         "vidType": "VID Type",
         "vid": "VID",
         "timestamp": "Timestamp",
-        "descriptionText": "Track the status of an event ID (EID) associated with the logged-in NIN/AIN/VID. You can also view the detailed information about the entered EID.",
+        "descriptionText": "Track the status of an event ID (EID) associated with the logged-in NIN/AIN. You can also view the detailed information about the entered EID.",
         "transactionTitle": "Transaction Details",
         "partnerName": "Partner name",
         "partnerLogo": "Partner logo",
