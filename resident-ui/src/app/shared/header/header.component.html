@@ -23,7 +23,7 @@
           {{item.label}}</button>
       </mat-menu>
 
-      <mat-list-item *ngIf="activeUrl !== '#/dashboard/expired' && showLangDropDown">
+    <!--<mat-list-item *ngIf="activeUrl !== '#/dashboard/expired' && showLangDropDown">
         <button [style.font-size]="fontSize.lableText" id="languages" mat-button [matMenuTriggerFor]="languages"> <span class="mat-button-wrapper"><mat-icon>g_translate</mat-icon>
           <span class="selected-lang">{{selectedLanguage}}</span> <mat-icon>keyboard_arrow_down</mat-icon></span></button>
       </mat-list-item>
@@ -31,7 +31,7 @@
       <mat-menu class="language-menu" [backdropClass]="'zoom'"  #languages="matMenu" [overlapTrigger]="false">
         <button [style.font-size]="fontSize.lableText" [ngClass]="item.code === langCode ? 'sel-font-size-btn' : 'font-size-btn'" mat-menu-item (click)="onlanguagechange(item)"
           *ngFor="let item of selectLanguagesArr" id="lang{{item.code}}" >{{item.value}}</button>
-      </mat-menu>
+      </mat-menu> -->
 
       <mat-list-item *ngIf="showLogoutBtn">
         <button mat-raised-button class="logout-btn" (click)="showUinServicesLogoutPopup()" [style.font-size]="fontSize.paragraph">

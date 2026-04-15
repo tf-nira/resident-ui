@@ -30,7 +30,7 @@
 											(click)="captureCheckboxValue($event, data, data.maskAttributeName)">
 											{{data.maskRequiredLabel[langCode]}}</mat-checkbox>
 									</td>
-									<td *ngIf="data.formatRequired" style="width:60%;">
+									<td *ngIf="data.formatRequired && data.attributeName !== 'dateOfBirth'" style="width:60%">
 										<button [style.font-size]="fontSize.checkBoxText" [disabled]="!data.checked" id="matIcon" mat-button
 											[matMenuTriggerFor]="basic">{{data.formatOptionLabel[langCode]}}
 											<mat-icon>keyboard_arrow_down</mat-icon>

@@ -1,2 +1,13 @@
+<div *ngIf="isready; else loading">
+  <app-header></app-header>
+  <div class="main-container">
+    <router-outlet></router-outlet>
+  </div>
+</div>
 
-<router-outlet><app-header></app-header></router-outlet>
+<ng-template #loading>
+  <div style="display: flex; justify-content: center; align-items: center; height: 100vh; font-family: sans-serif;">
+     <div class="spinner"></div>
+     <p>Loading Resident Services...</p>
+  </div>
+</ng-template>
