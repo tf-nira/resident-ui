@@ -258,14 +258,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   godashboard() {
-    console.log("this.authService.isAuthenticated()>>>"+this.fullName);
-    if (this.fullName) {
-      console.log("session exist>>>");
-      this.router.navigate(["uinservices/dashboard"]);
-    } else {
-      console.log("session doesn't exist>>>");
-      this.router.navigate(["dashboard"]);
-    }
     this.authService.isAuthenticated().subscribe(isAuth => {
       if (isAuth) {
         this.router.navigate(["uinservices/dashboard"]);
