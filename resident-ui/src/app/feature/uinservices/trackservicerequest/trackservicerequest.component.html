@@ -153,7 +153,10 @@
 			</div>
 
 		</div>
-		<P [style.font-size]="fontSize.paragraph" *ngIf="eidStatus">{{'trackservicerequest.raiseSupportRequest' | translate}} <span id="raiseSupportLink" class="click-here" (click)="navigateGrievance(eidStatus.eventId)">{{'trackservicerequest.clickHere' | translate}}</span></P>
-	</div>
+  	  <P [style.font-size]="fontSize.paragraph" *ngIf="eidStatus">{{'trackservicerequest.raiseSupportRequest' | translate}}
+			{{'trackservicerequest.contactNiraSupport' | translate}}
+			 <!-- <span id="raiseSupportLink" class="click-here" (click)="navigateGrievance(eidStatus.eventId)">{{'trackservicerequest.clickHere' | translate}}</span> -->
+			</P>
+     </div>
 	</mat-card>
 </div>
