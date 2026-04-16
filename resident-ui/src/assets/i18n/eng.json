@@ -473,6 +473,7 @@
         "downloadUINCard": "Download NIN card",
         "purpose": "Purpose",
         "raiseSupportRequest": "To raise a support request against this EID,",
+        "contactNiraSupport":"Contact NIRA support team.",
         "clickHere": "click here.",
         "warningMsg": "Please enter a valid 16-digits EID."
     },
