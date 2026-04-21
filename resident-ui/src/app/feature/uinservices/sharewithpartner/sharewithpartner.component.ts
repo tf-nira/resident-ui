@@ -129,7 +129,7 @@ export class SharewithpartnerComponent implements OnInit, OnDestroy {
     this.getPartnerDetails();
     this.getUserInfo()
     this.getMappingData()
-    this.getshareMyDataSchema()
+    // this.getshareMyDataSchema()
 
     const subs = this.autoLogout.currentMessageAutoLogout.subscribe(
       (message) => (this.message2 = message) //message =  {"timerFired":false}
@@ -158,6 +158,17 @@ export class SharewithpartnerComponent implements OnInit, OnDestroy {
     .getUpdateMyDataSchema('share-credential')
     .subscribe((response) => {
       this.schema = response["identity"];
+      const hasPhone = this.userInfo && this.userInfo.phone;
+      if (hasPhone) {
+        this.schema = this.schema.filter(
+          item => item.attributeName !== 'nonLocalPhone'
+        );
+      } else {
+        this.schema = this.schema.filter(
+          item => item.attributeName !== 'phone'
+        );
+      }
+      this.valuesSelected = [];
       this.schema.forEach(data => {
         this.valuesSelected.push(data.attributeName)
       })
@@ -179,6 +190,7 @@ export class SharewithpartnerComponent implements OnInit, OnDestroy {
         if (response['response']) {
           this.userInfo = response["response"];
           this.isLoading = false;
+          this.getshareMyDataSchema();
         } else {
           this.showErrorPopup(response['errors'])
         }
