@@ -81,6 +81,9 @@
 										<tr *ngIf="sharableAttributes['phone']" style="word-break: break-word;">
 											<td  colspan='3'><label [style.font-size]="fontSize.breadcrumb" style="color: #666666;">{{sharableAttributes['phone']['label']}}</label><br><span [style.font-size]="fontSize.paragraph" style="color: #000000; font-weight: 400;">{{sharableAttributes['phone']['value']}}</span></td>
 										</tr>
+                    <tr *ngIf="sharableAttributes['nonLocalPhone']" style="word-break: break-word;">
+											<td  colspan='3'><label [style.font-size]="fontSize.breadcrumb" style="color: #666666;">{{sharableAttributes['nonLocalPhone']['label']}}</label><br><span [style.font-size]="fontSize.paragraph" style="color: #000000; font-weight: 400;">{{sharableAttributes['nonLocalPhone']['value']}}</span></td>
+										</tr>
 										<tr *ngIf="sharableAttributes['email']" style="word-break: break-word;">
 											<td colspan='3' >
 												<label [style.font-size]="fontSize.breadcrumb" style="color: #666666;">{{sharableAttributes['email']['label']}}</label><br><span [style.font-size]="fontSize.paragraph" style="color: #000000; font-weight: 400;">{{sharableAttributes['email']['value']}}</span>

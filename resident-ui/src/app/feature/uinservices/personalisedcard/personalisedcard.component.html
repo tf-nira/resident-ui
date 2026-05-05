@@ -71,6 +71,9 @@
 						<tr *ngIf="dataDisplay['phone']">
 							<td  colspan='3'><label [style.font-size]="fontSize.breadcrumb"  style="color: #666666;">{{dataDisplay['phone']['label']}}</label><br><span [style.font-size]="fontSize.paragraph"  class="detailinfo">{{dataDisplay['phone']['value']}}</span></td>
 						</tr>
+            <tr *ngIf="dataDisplay['nonLocalPhone']">
+						   <td colspan='3'><label [style.font-size]="fontSize.breadcrumb" style="color: #666666;">{{dataDisplay['nonLocalPhone'].label}}</label><br><span [style.font-size]="fontSize.paragraph" class="detailinfo">{{dataDisplay['nonLocalPhone'].value}}</span></td>
+						</tr>
 						<tr *ngIf="dataDisplay['email']">
 							<td colspan='3'>
 								<label [style.font-size]="fontSize.breadcrumb"  style="color: #666666;">{{dataDisplay['email']['label']}}</label><br><span [style.font-size]="fontSize.paragraph"  class="detailinfo">{{dataDisplay['email']['value']}}</span>

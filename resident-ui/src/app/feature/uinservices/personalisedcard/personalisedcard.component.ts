@@ -99,7 +99,7 @@ export class PersonalisedcardComponent implements OnInit, OnDestroy {
 
     this.getUserInfo();
     this.getMappingData();
-    this.getPersonalizedCardSchema()
+    // this.getPersonalizedCardSchema()
 
     const subs = this.autoLogout.currentMessageAutoLogout.subscribe(
       (message) => (this.message2 = message) //message =  {"timerFired":false}
@@ -131,6 +131,13 @@ export class PersonalisedcardComponent implements OnInit, OnDestroy {
     .getUpdateMyDataSchema('personalized-card')
     .subscribe((response) => {
       this.schema = response["identity"];
+        const hasPhone = this.userInfo && this.userInfo.phone;
+       if (hasPhone) {
+        this.schema = this.schema.filter(item => item.attributeName !== 'nonLocalPhone');
+      } else {
+        this.schema = this.schema.filter(item => item.attributeName !== 'phone');
+      }
+      this.valuesSelected = [];
       this.schema.forEach(data =>{
         this.valuesSelected.push(data.attributeName)
       })
@@ -144,6 +151,7 @@ export class PersonalisedcardComponent implements OnInit, OnDestroy {
         if (response['response']) {
           this.userInfo = response["response"];
           this.isLoading = false;
+          this.getPersonalizedCardSchema();
         } else {
           this.showErrorPopup(response['errors'])
         }
