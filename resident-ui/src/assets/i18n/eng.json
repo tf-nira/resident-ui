@@ -668,7 +668,7 @@
             "Face Authentication": "On locking/unlocking 'Face Authentication', any Authentication attempt made using face will be disabled/ enabled."
         },
         "trackStatus": "Please enter the EID (Event ID) associated with the event that you want to track. It is important that the EID you enter is associated with the logged-in NIN.",
-        "getUin": "An AID/RID is your $AID-digit Application ID which was provided to you after registration. A NIN is your 12-digit National Identity Number.",
+        "getUin": "AID/ RID is your application ID. NIN is National Identification Number. AIN is Alien Identification Number.",
         "verifyChannel": "A NIN is your 12-digit National Identity Number. VID is your 16-digit Virtual ID."
     },
     "serverErrors": {
