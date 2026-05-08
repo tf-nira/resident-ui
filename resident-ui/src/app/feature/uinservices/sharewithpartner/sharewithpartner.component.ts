@@ -35,6 +35,9 @@ export class SharewithpartnerComponent implements OnInit, OnDestroy {
   partnerDetails: any;
   partnerId: string = "";
   purpose: string = "";
+  prn: string = "";
+  prnValid: boolean = false;
+  prnValidationMessage: string = "";
   sharableAttributes: any = {};
   showAcknowledgement: boolean = false;
   aidStatus: any;
@@ -203,6 +206,29 @@ export class SharewithpartnerComponent implements OnInit, OnDestroy {
     let enterdChars = this.purpose.length
     this.remainingChars = this.totalCommentCount - enterdChars
   }
+
+  resetPrnValidity() {
+    this.prnValid = false;
+    this.prnValidationMessage = "";
+  }
+
+  checkPrn() {
+    const prnValue = (this.prn || "").trim();
+    if (!prnValue) {
+      this.prnValid = false;
+      this.prnValidationMessage = this.popupMessages.genericmessage.sharewithpartner.prnRequired || "PRN is required to proceed.";
+      return;
+    }
+    const isValid = /^\d{13}$/.test(prnValue);
+    if (isValid) {
+      this.prnValid = true;
+      this.prnValidationMessage = this.popupMessages.genericmessage.sharewithpartner.validPrn || "PRN is valid.";
+    } else {
+      this.prnValid = false;
+      this.prnValidationMessage = this.popupMessages.genericmessage.sharewithpartner.invalidPrn || "PRN must be 13 digits.";
+    }
+  }
+
   captureVirtualKeyboard(element: HTMLElement, index: number) {
     this.keyboardRef.instance.setInputInstance(this.attachToElementMesOne._results[index]);
   }
@@ -429,6 +455,9 @@ export class SharewithpartnerComponent implements OnInit, OnDestroy {
       this.showValidateMessage(this.message);
     } else if (!this.purpose.match(this.purposeValidation)) {
       this.message = this.popupMessages.genericmessage.sharewithpartner.specialCharacters;
+      this.showValidateMessage(this.message);
+    } else if (!this.prnValid) {
+      this.message = this.popupMessages.genericmessage.sharewithpartner.invalidPrn || "PRN must be 13 digits.";
       this.showValidateMessage(this.message);
     } else {
       this.termAndConditions();
