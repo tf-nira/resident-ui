@@ -152,6 +152,7 @@
 .share-btn{
   background-color: #03A64A;
   color: #ffffff;
+  float: right;
 }
 
 .main-label{
