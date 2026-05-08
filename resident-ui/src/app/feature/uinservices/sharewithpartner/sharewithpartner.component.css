@@ -109,6 +109,7 @@
 .enable-dropdown {
   width: 100%;
   display: block;
+  min-height: 56px;
 }
 
 .purpose-search-card{
@@ -130,7 +131,15 @@
   width: 100%;
   height: 56px;
   box-sizing: border-box;
-  padding: 8px 5px;
+  padding: 8px 12px;
+}
+
+.purpose-search-card button.check-prn-btn {
+  margin-left: 8px;
+  white-space: nowrap;
+  min-height: 56px;
+  height: 56px;
+  align-self: stretch;
 }
 
 .check-prn-btn {
@@ -183,13 +192,6 @@ table.fixed td {
   color: #505050;
   font-size: 16px;
   padding-left: 1.25rem;
-}
-
-.purpose-search-card{
-  border-radius: 4px !important;
-  padding: 3px; 
-  border: 1px solid #909090; 
-  display: flex;
 }
 
 button[disabled=disabled], button:disabled {
