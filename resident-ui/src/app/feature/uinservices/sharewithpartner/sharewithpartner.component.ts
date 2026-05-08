@@ -232,7 +232,7 @@ export class SharewithpartnerComponent implements OnInit, OnDestroy {
       "prn": prnValue
     };
     this.dataStorageService.checkPrnValidity(request).subscribe(
-      response => {
+      (response: any) => {
         this.prnCheckingLoading = false;
         if (response.response && response.errors === null) {
           if (response.response.presentInLogs === false) {

@@ -229,7 +229,7 @@ export class DataStorageService {
   }
 
   checkPrnValidity(request: any) {
-    return this.httpClient.post(this.getPrnValidationUrl(), request);
+    return this.httpClient.post<any>(this.getPrnValidationUrl(), request);
   }
 
   downloadAcknowledgement(eventId: string) {
