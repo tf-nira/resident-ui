@@ -219,6 +219,19 @@ export class DataStorageService {
     return this.httpClient.post(this.BASE_URL + '/share-credential', request, { observe: 'response' });
   }
 
+  private getPrnValidationUrl() {
+    try {
+      const parsed = new URL(this.BASE_URL);
+      return parsed.origin + '/v1/payment/checkTranscLogs';
+    } catch (error) {
+      return this.BASE_URL.replace(/\/$/, '') + '/v1/payment/checkTranscLogs';
+    }
+  }
+
+  checkPrnValidity(request: any) {
+    return this.httpClient.post(this.getPrnValidationUrl(), request);
+  }
+
   downloadAcknowledgement(eventId: string) {
     return this.httpClient.get<Blob>(this.BASE_URL + '/ack/download/pdf/event/' + eventId + '/language/' + localStorage.getItem("langCode"), { observe: 'response', responseType: 'blob' as 'json' });
   }

@@ -147,9 +147,10 @@
 										<input matInput [style.fontSize]="fontSize.lableText" id="prnInput" class="purpose-input-box" type="text"
 											placeholder="{{'sharewithpartner.prnPlaceholder' | translate}}"
 											[(ngModel)]="prn" (input)="resetPrnValidity()" />
-										<button mat-raised-button color="primary" class="check-prn-btn" type="button" (click)="checkPrn()">{{'sharewithpartner.checkPrnButton' | translate}}</button>
+										<button mat-raised-button color="primary" class="check-prn-btn" type="button" (click)="checkPrn()" [disabled]="prnCheckingLoading">{{'sharewithpartner.checkPrnButton' | translate}}</button>
 									</span>
-									<span *ngIf="prnValidationMessage" [style.fontSize]="fontSize.breadcrumb"
+									<span *ngIf="prnCheckingLoading" [style.fontSize]="fontSize.breadcrumb" style="color: #505050; display: block;">Checking PRN...</span>
+									<span *ngIf="prnValidationMessage && !prnCheckingLoading" [style.fontSize]="fontSize.breadcrumb"
 										[style.color]="prnValid ? 'green' : 'red'" style="display: block;">{{prnValidationMessage}}</span>
 								</td>
 							</tr>

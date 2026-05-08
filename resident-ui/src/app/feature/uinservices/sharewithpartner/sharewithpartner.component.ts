@@ -38,6 +38,7 @@ export class SharewithpartnerComponent implements OnInit, OnDestroy {
   prn: string = "";
   prnValid: boolean = false;
   prnValidationMessage: string = "";
+  prnCheckingLoading: boolean = false;
   sharableAttributes: any = {};
   showAcknowledgement: boolean = false;
   aidStatus: any;
@@ -210,6 +211,7 @@ export class SharewithpartnerComponent implements OnInit, OnDestroy {
   resetPrnValidity() {
     this.prnValid = false;
     this.prnValidationMessage = "";
+    this.prnCheckingLoading = false;
   }
 
   checkPrn() {
@@ -219,14 +221,43 @@ export class SharewithpartnerComponent implements OnInit, OnDestroy {
       this.prnValidationMessage = this.popupMessages.genericmessage.sharewithpartner.prnRequired || "PRN is required to proceed.";
       return;
     }
-    const isValid = /^\d{13}$/.test(prnValue);
-    if (isValid) {
-      this.prnValid = true;
-      this.prnValidationMessage = this.popupMessages.genericmessage.sharewithpartner.validPrn || "PRN is valid.";
-    } else {
+    const isValidFormat = /^\d{13}$/.test(prnValue);
+    if (!isValidFormat) {
       this.prnValid = false;
       this.prnValidationMessage = this.popupMessages.genericmessage.sharewithpartner.invalidPrn || "PRN must be 13 digits.";
+      return;
     }
+    this.prnCheckingLoading = true;
+    const request = {
+      "prn": prnValue
+    };
+    this.dataStorageService.checkPrnValidity(request).subscribe(
+      response => {
+        this.prnCheckingLoading = false;
+        if (response.response && response.errors === null) {
+          if (response.response.presentInLogs === false) {
+            this.prnValid = true;
+            this.prnValidationMessage = this.popupMessages.genericmessage.sharewithpartner.validPrn || "PRN is valid.";
+          } else {
+            this.prnValid = false;
+            const errorMsg = response.errors && response.errors[0] ? response.errors[0].message : "PRN is invalid.";
+            this.prnValidationMessage = errorMsg;
+          }
+        } else if (response.errors && response.errors.length > 0) {
+          this.prnValid = false;
+          this.prnValidationMessage = response.errors[0].message || "PRN is invalid.";
+        } else {
+          this.prnValid = false;
+          this.prnValidationMessage = "PRN validation failed.";
+        }
+      },
+      err => {
+        this.prnCheckingLoading = false;
+        this.prnValid = false;
+        this.prnValidationMessage = "Error checking PRN. Please try again.";
+        console.error(err);
+      }
+    );
   }
 
   captureVirtualKeyboard(element: HTMLElement, index: number) {
