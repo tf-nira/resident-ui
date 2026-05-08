@@ -105,6 +105,31 @@
   outline: none;
 }
 
+.enable-dropdown {
+  width: 100%;
+  display: block;
+}
+
+.purpose-search-card{
+  border-radius: 4px !important;
+  padding: 3px; 
+  border: 1px solid #909090; 
+  display: flex;
+  width: 100%;
+  align-items: center;
+}
+
+.purpose-search-card input.purpose-input-box {
+  flex: 1 1 auto;
+  min-width: 0;
+  width: auto;
+}
+
+.check-prn-btn {
+  margin-left: 8px;
+  white-space: nowrap;
+}
+
 .share-btn{
   background-color: #03A64A;
   color: #ffffff;
