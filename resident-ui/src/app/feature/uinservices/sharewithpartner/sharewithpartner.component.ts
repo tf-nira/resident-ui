@@ -233,20 +233,14 @@ export class SharewithpartnerComponent implements OnInit, OnDestroy {
     };
     this.dataStorageService.checkPrnValidity(request).subscribe(
       (response: any) => {
-        this.prnCheckingLoading = false;
-        if (response.response && response.errors === null) {
-          if (response.response.presentInLogs === false) {
-            this.prnValid = true;
-            this.prnValidationMessage = this.popupMessages.genericmessage.sharewithpartner.validPrn || "PRN is valid.";
-          } else {
-            this.prnValid = false;
-            const errorMsg = response.errors && response.errors[0] ? response.errors[0].message : "PRN is invalid.";
-            this.prnValidationMessage = errorMsg;
-          }
+        if (response.response && response.errors === null && response.response.presentInLogs === false) {
+          this.validatePrnStatus(prnValue);
         } else if (response.errors && response.errors.length > 0) {
+          this.prnCheckingLoading = false;
           this.prnValid = false;
           this.prnValidationMessage = response.errors[0].message || "PRN is invalid.";
         } else {
+          this.prnCheckingLoading = false;
           this.prnValid = false;
           this.prnValidationMessage = "PRN validation failed.";
         }
@@ -255,6 +249,46 @@ export class SharewithpartnerComponent implements OnInit, OnDestroy {
         this.prnCheckingLoading = false;
         this.prnValid = false;
         this.prnValidationMessage = "Error checking PRN. Please try again.";
+        console.error(err);
+      }
+    );
+  }
+
+  private validatePrnStatus(prnValue: string) {
+    this.prnCheckingLoading = true;
+    const statusRequest = { prn: prnValue };
+
+    this.dataStorageService.checkPrnStatus(statusRequest).subscribe(
+      (statusResponse: any) => {
+        this.prnCheckingLoading = false;
+
+        if (statusResponse.response && statusResponse.errors === null) {
+          const status = statusResponse.response;
+          const validTaxHead = status.taxHeadCode === 'CIP001';
+          const validCurrency = status.currency === 'UGX';
+          const validStatus = status.statusCode === 'A';
+
+          if (validTaxHead && validCurrency && validStatus) {
+            this.prnValid = true;
+            this.prnValidationMessage = this.popupMessages.genericmessage.sharewithpartner.validPrn || 'PRN is valid.';
+          } else {
+            this.prnValid = false;
+            this.prnValidationMessage = this.popupMessages.genericmessage.sharewithpartner.prnFinalValidationFailed || 'PRN did not pass the final validation.';
+          }
+        } else if (statusResponse.errors && statusResponse.errors.length > 0) {
+          this.prnValid = false;
+          this.prnCheckingLoading = false;
+          this.prnValidationMessage = statusResponse.errors[0].message || 'No data found for supplied PRN';
+        } else {
+          this.prnValid = false;
+          this.prnCheckingLoading = false;
+          this.prnValidationMessage = 'PRN status validation failed.';
+        }
+      },
+      err => {
+        this.prnCheckingLoading = false;
+        this.prnValid = false;
+        this.prnValidationMessage = 'Error checking PRN status. Please try again.';
         console.error(err);
       }
     );

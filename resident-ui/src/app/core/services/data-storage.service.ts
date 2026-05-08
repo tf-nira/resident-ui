@@ -228,8 +228,21 @@ export class DataStorageService {
     }
   }
 
+  private getPrnStatusUrl() {
+    try {
+      const parsed = new URL(this.BASE_URL);
+      return parsed.origin + '/v1/payment/checkPrnStatus';
+    } catch (error) {
+      return this.BASE_URL.replace(/\/$/, '') + '/v1/payment/checkPrnStatus';
+    }
+  }
+
   checkPrnValidity(request: any) {
     return this.httpClient.post<any>(this.getPrnValidationUrl(), request);
+  }
+
+  checkPrnStatus(request: any) {
+    return this.httpClient.post<any>(this.getPrnStatusUrl(), request);
   }
 
   downloadAcknowledgement(eventId: string) {
