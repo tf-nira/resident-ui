@@ -44,9 +44,6 @@ export class SharewithpartnerComponent implements OnInit, OnDestroy {
   formatData: any;
   eventId: any;
   shareBthDisabled: boolean = true;
-  prn: string = "";
-  prnValid: boolean = false;
-  prnError: string = "";
   valuesSelected: any = [];
   previewWidth:string;
   cols: number;
@@ -193,33 +190,6 @@ export class SharewithpartnerComponent implements OnInit, OnDestroy {
     this.purpose = event.target.value;
     let enterdChars = this.purpose.length
     this.remainingChars = this.totalCommentCount - enterdChars
-  }
-
-  onPrnInput(event: any) {
-    const input = event.target.value || "";
-    this.prn = input.replace(/[^0-9]/g, "");
-    this.prnValid = false;
-    this.prnError = "";
-    this.updateShareButtonState();
-  }
-
-  validatePrn() {
-    const prnValue = (this.prn || "").trim();
-    if (!prnValue) {
-      this.prnValid = false;
-      this.prnError = "PRN is required.";
-    } else if (!/^\d{13}$/.test(prnValue)) {
-      this.prnValid = false;
-      this.prnError = "PRN must be a 13 digit number.";
-    } else {
-      this.prnValid = true;
-      this.prnError = "";
-    }
-    this.updateShareButtonState();
-  }
-
-  updateShareButtonState() {
-    this.shareBthDisabled = !this.prnValid || Object.keys(this.sharableAttributes).length < 3;
   }
 
   captureVirtualKeyboard(element: HTMLElement, index: number) {
@@ -415,7 +385,7 @@ export class SharewithpartnerComponent implements OnInit, OnDestroy {
     }
     $event.stopPropagation();
     if (Object.keys(this.sharableAttributes).length >= 3) {
-      this.shareBthDisabled = !this.prnValid;
+      this.shareBthDisabled = false
     } else {
       this.shareBthDisabled = true
     }
