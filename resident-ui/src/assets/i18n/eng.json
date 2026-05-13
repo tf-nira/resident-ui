@@ -510,7 +510,10 @@
         "orin": "or in",
         "viewHistoryLink": "view history",
         "TotalCharacters": "Total Characters",
-        "remainingCharacters": "Remaining"
+        "remainingCharacters": "Remaining",
+        "prnLabel": "PRN",
+        "prnPlaceholder": "Enter PRN",
+        "checkPrnButton": "Check PRN"
     },
     "uinStatus": {
         "status": "Status",
