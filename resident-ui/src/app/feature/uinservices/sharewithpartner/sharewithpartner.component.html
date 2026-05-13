@@ -135,13 +135,30 @@
 											style="color:red; font-size: 12px; display: block;">{{'sharewithpartner.remainingCharacters'
 											| translate}}: {{remainingChars}}</span>
 									</td>
-								</tr>
+								</tr><tr>
+								<td class="sharing-purpose-label">
+									<mat-label [style.fontSize]="fontSize.lableText">{{'sharewithpartner.prnLabel' | translate}}<span style="color: red;">*</span></mat-label>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<span class="purpose-search-card">
+										<input matInput [style.fontSize]="fontSize.lableText" id="prnInput" class="purpose-input-box" type="text"
+											placeholder="{{'sharewithpartner.prnPlaceholder' | translate}}"
+											[(ngModel)]="prn" (input)="resetPrnValidity()" />
+										<button mat-raised-button color="primary" class="check-prn-btn" type="button" (click)="checkPrn()" [disabled]="prnCheckingLoading">{{'sharewithpartner.checkPrnButton' | translate}}</button>
+									</span>
+									<span *ngIf="prnCheckingLoading" [style.fontSize]="fontSize.breadcrumb" style="color: #505050; display: block;">Checking PRN...</span>
+									<span *ngIf="prnValidationMessage && !prnCheckingLoading" [style.fontSize]="fontSize.breadcrumb"
+										[style.color]="prnValid ? 'green' : 'red'" style="display: block;">{{prnValidationMessage}}</span>
+								</td>
+							</tr>
 							</table>
 						</td>
 					</mat-grid-tile></mat-grid-list>
 			</tr>
 			<tr>
-				<td style="float:right;width: 100%" colspan="2"><button [style.fontSize]="fontSize.paragraph" id="shareBtn" [disabled]="shareBthDisabled"
+					<td style="float:right;width: 100%" colspan="2"><button [style.fontSize]="fontSize.paragraph" id="shareBtn" [disabled]="shareBthDisabled || !prnValid"
 						mat-raised-button class="share-btn" (click)="shareInfoBtn()">{{'sharewithpartner.sharebutton' |
 						translate}}</button></td>
 			</tr>
