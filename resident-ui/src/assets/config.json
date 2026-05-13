@@ -1,5 +1,5 @@
 {
-    "baseUrl": "https://api-internal.qa-java21.mosip.net/resident/v1",
+    "baseUrl": "https://api-internal.niraqa1.idencode.link/resident/v1",
     "version": "v1",
     "validateToken": "admin/authorize/admin/validateToken",
     "login": "/login/",
