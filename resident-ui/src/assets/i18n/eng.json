@@ -215,7 +215,13 @@
         "EnterMsgPlaceholder": "Please enter your comment",
         "submitBtn": "Submit",
         "TotalCharacters": "Total Characters",
-        "remainingCharacters": "Remaining"
+        "remainingCharacters": "Remaining",
+        "prnLabel": "PRN",
+        "prnPlaceholder": "Enter PRN",
+        "checkPrnButton": "Check PRN",
+        "invalidPrn": "PRN must be 13 digits",
+        "validPrn": "PRN is valid",
+        "prnRequired": "PRN is required to proceed."
     },
     "breadCrumbNames": {
         "trackMyRequest": "Track My Request",
@@ -504,7 +510,10 @@
         "orin": "or in",
         "viewHistoryLink": "view history",
         "TotalCharacters": "Total Characters",
-        "remainingCharacters": "Remaining"
+        "remainingCharacters": "Remaining",
+        "prnLabel": "PRN",
+        "prnPlaceholder": "Enter PRN",
+        "checkPrnButton": "Check PRN"
     },
     "uinStatus": {
         "status": "Status",
@@ -624,6 +633,12 @@
             "needPartner": "Kindly choose a partner to proceed.",
             "needPurpose": "Purpose of sharing your credential is a mandatory field. Kindly mention the purpose of sharing your credential.",
             "specialCharacters": "Please enter letters/numbers in order to share your credentials.",
+            "invalidPrn": "PRN must be 13 digits.",
+            "validPrn": "PRN is valid.",
+            "prnRequired": "PRN is required to proceed.",
+            "invalidPrn": "PRN must be 13 digits.",
+            "validPrn": "PRN is valid.",
+            "prnRequired": "PRN is required to proceed.",
             "sharedSuccessfully": "The data chosen by you has been successfully shared with the chosen partner against the Event Id: $eventId"
         },
         "verifyChannel": {
