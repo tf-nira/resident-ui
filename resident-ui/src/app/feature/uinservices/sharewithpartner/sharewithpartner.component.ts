@@ -525,9 +525,50 @@ export class SharewithpartnerComponent implements OnInit, OnDestroy {
       this.message = this.popupMessages.genericmessage.sharewithpartner.invalidPrn || "PRN must be 13 digits.";
       this.showValidateMessage(this.message);
     } else {
-      this.termAndConditions();
+      this.consumePrnBeforeShare();
     }
   }
+
+ consumePrnBeforeShare() {
+    const regId = this.sharableAttributes['NIN'] ? this.sharableAttributes['NIN']['value'] : "";
+    const prnValue = (this.prn || "").trim();
+
+    if (!regId) {
+      this.showValidateMessage("NIN is required to consume PRN. Please select NIN checkbox.");
+      return;
+    }
+
+    if (!prnValue) {
+      this.showValidateMessage("PRN is required to proceed.");
+      return;
+    }
+
+    this.isLoading = true;
+    const request = {
+      "regId": regId,
+      "prn": prnValue
+    };
+    this.dataStorageService.consumePrn(request).subscribe(
+      (response: any) => {
+        this.isLoading = false;
+        // Check if there are no errors (errors can be null, undefined, or empty array)
+        if (!response.errors || (Array.isArray(response.errors) && response.errors.length === 0)) {
+          this.termAndConditions();
+        } else if (response.errors && response.errors.length > 0) {
+          const errorMsg = response.errors[0].message || "Failed to consume PRN.";
+          this.showValidateMessage(errorMsg);
+        } else {
+          this.showValidateMessage("Failed to consume PRN. Please try again.");
+        }
+      },
+      err => {
+        this.isLoading = false;
+        console.error(err);
+        this.showValidateMessage("Error consuming PRN. Please try again.");
+      }
+    );
+  }
+
 
   shareInfo() {
     this.isLoading = true;
