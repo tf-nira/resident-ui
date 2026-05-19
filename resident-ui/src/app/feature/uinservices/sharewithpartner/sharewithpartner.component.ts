@@ -526,8 +526,35 @@ export class SharewithpartnerComponent implements OnInit, OnDestroy {
       this.message = this.popupMessages.genericmessage.sharewithpartner.invalidPrn || "PRN must be 13 digits.";
       this.showValidateMessage(this.message);
     } else {
-      this.termAndConditions();
+      this.consumePrnBeforeShare();
     }
+  }
+
+  consumePrnBeforeShare() {
+    this.isLoading = true;
+    const regId = this.sharableAttributes['NIN'] ? this.sharableAttributes['NIN']['value'] : "";
+    const request = {
+      "regId": regId,
+      "prn": (this.prn || "").trim()
+    };
+    this.dataStorageService.consumePrn(request).subscribe(
+      (response: any) => {
+        this.isLoading = false;
+        if (response.response && response.errors === null) {
+          this.termAndConditions();
+        } else if (response.errors && response.errors.length > 0) {
+          const errorMsg = response.errors[0].message || "Failed to consume PRN.";
+          this.showValidateMessage(errorMsg);
+        } else {
+          this.showValidateMessage("Failed to consume PRN. Please try again.");
+        }
+      },
+      err => {
+        this.isLoading = false;
+        console.error(err);
+        this.showValidateMessage("Error consuming PRN. Please try again.");
+      }
+    );
   }
 
   shareInfo() {

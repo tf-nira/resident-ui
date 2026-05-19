@@ -237,6 +237,19 @@ private getPrnValidationUrl() {
     }
   }
 
+  consumePrn(request: any) {
+    return this.httpClient.post<any>(this.getConsumePrnUrl(), request);
+  }
+
+  private getConsumePrnUrl() {
+    try {
+      const parsed = new URL(this.BASE_URL);
+      return parsed.origin + '/v1/payment/consumePrn';
+    } catch (error) {
+      return this.BASE_URL.replace(/\/$/, '') + '/v1/payment/consumePrn';
+    }
+  }
+
   checkPrnValidity(request: any) {
     return this.httpClient.post<any>(this.getPrnValidationUrl(), request);
   }
