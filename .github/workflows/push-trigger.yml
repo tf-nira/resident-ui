@@ -22,7 +22,7 @@ on:
       - verify
       - tf_nira_dev
       - tf_nira_preprod
-      - submit_button
+      - tf_preprod_prn
 
 jobs:
   build-resident-ui:
