@@ -531,16 +531,29 @@ export class SharewithpartnerComponent implements OnInit, OnDestroy {
   }
 
   consumePrnBeforeShare() {
-    this.isLoading = true;
     const regId = this.sharableAttributes['NIN'] ? this.sharableAttributes['NIN']['value'] : "";
+    const prnValue = (this.prn || "").trim();
+
+    if (!regId) {
+      this.showValidateMessage("NIN is required to consume PRN. Please select NIN checkbox.");
+      return;
+    }
+
+    if (!prnValue) {
+      this.showValidateMessage("PRN is required to proceed.");
+      return;
+    }
+
+    this.isLoading = true;
     const request = {
       "regId": regId,
-      "prn": (this.prn || "").trim()
+      "prn": prnValue
     };
     this.dataStorageService.consumePrn(request).subscribe(
       (response: any) => {
         this.isLoading = false;
-        if (response.response && response.errors === null) {
+        // Check if there are no errors (errors can be null, undefined, or empty array)
+        if (!response.errors || (Array.isArray(response.errors) && response.errors.length === 0)) {
           this.termAndConditions();
         } else if (response.errors && response.errors.length > 0) {
           const errorMsg = response.errors[0].message || "Failed to consume PRN.";
