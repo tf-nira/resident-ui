@@ -265,10 +265,9 @@ export class SharewithpartnerComponent implements OnInit, OnDestroy {
         if (statusResponse.response && statusResponse.errors === null) {
           const status = statusResponse.response;
           const validTaxHead = status.taxHeadCode === 'CIP001';
-          const validCurrency = status.currency === 'UGX';
           const validStatus = status.statusCode === 'A';
 
-          if (validTaxHead && validCurrency && validStatus) {
+          if (validTaxHead && validStatus) {
             this.prnValid = true;
             this.prnValidationMessage = this.popupMessages.genericmessage.sharewithpartner.validPrn || 'PRN is valid.';
           } else {
