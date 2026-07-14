@@ -265,7 +265,7 @@ export class SharewithpartnerComponent implements OnInit, OnDestroy {
         if (statusResponse.response && statusResponse.errors === null) {
           const status = statusResponse.response;
           const validTaxHead = status.taxHeadCode === 'CIP001';
-          const validCurrency = status.currency === 'UGX';
+          const validCurrency = status.currency === '';
           const validStatus = status.statusCode === 'A';
 
           if (validTaxHead && validCurrency && validStatus) {
