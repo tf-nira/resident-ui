@@ -584,17 +584,17 @@
             "invalidOtp": " Invalid OTP was entered. Please click resend OTP and try again with a valid OTP "
         },
         "termsAndConditionsDescription": [
-            "Your data will be shared with the chosen third party (credential partner)",
-            "You are responsible for any and all costs and fees associated with agreements entered into with the third-party provider.",
-            "Under no circumstances will we be liable for loss or misuse of data whatsoever, arising from the usage of data shared with the partner.",
-            "if a third-party provider ceases to make its service available or requires MOSIP to suspend or terminate the provision of all or any part of its services to you that part of data or services will be terminated immediately without notice or further obligation to you."
+            "You voluntarily consent to NIRA sharing only the identity information you have selected with the named third-party provider for the stated purpose.",
+            "The shared information shall be processed in accordance with the Registration of Persons Act, Cap. 332, the Data Protection and Privacy Act, 2019, and any other applicable laws.",
+            "Once your information has been shared with your consent, the third-party provider is responsible for its lawful processing, use, storage, and protection in accordance with the law.",
+            "NIRA shall not be responsible for the third-party provider's services, any fees charged by the provider, or the provider's handling of your information after it has been shared with your consent."
         ],
         "conditionsForupdateDemographicData": [
             "The data chosen by you will be updated after the proof of address or Proof of identity is duly verified.",
             "You are responsible for any and all costs and fees associated with an agreement to update your data.",
             "You are responsible for any changes made to your already existing personal data or uploaded document to support the same."
         ],
-        "agreeLabel": "I agree to the terms and conditions to share my credentials with the chosen partner",
+        "agreeLabel": "I have read and understood these Terms and Conditions and voluntarily consent to NIRA sharing my selected identity information with the named third-party provider for the stated purpose.",
         "agreeLabelForUpdateData": "I agree to the terms and conditions to update demographic data",
         "personalisedcardConditions": {
             "title": "Download Your Personalised Card",
