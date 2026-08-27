@@ -356,6 +356,10 @@ export class DataStorageService {
   getStatus(individualId: any) {
     return this.httpClient.get(this.BASE_URL + '/aid-stage/' + individualId)
   }
+
+  getNinFromRID(rid: string) {
+    return this.httpClient.get(this.BASE_URL + '/getNin/' + rid)
+  }
   
   registrationCentersList(langcode: any,hierarchylevel:any,name:any) {
     return this.httpClient.get<Blob>(this.BASE_URL + `/download/registration-centers-list?langcode=${langcode}&hierarchylevel=${hierarchylevel}&name=${name}`, { observe: 'response', responseType: 'blob' as 'json' })

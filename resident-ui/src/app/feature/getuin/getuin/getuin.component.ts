@@ -50,6 +50,8 @@ export class GetuinComponent implements OnInit {
   aidLength:string;
   ninLength:string;
   isLoading:boolean = true;
+  ninValue: any;
+  showNin: boolean;
 
   constructor(
     private router: Router,
@@ -170,9 +172,12 @@ export class GetuinComponent implements OnInit {
   getStatus(data:any){
     this.dataStorageService.getStatus(data).subscribe(response =>{
       if(response["response"]){
-        if(response["response"].transactionStage === "CARD_READY_TO_DOWNLOAD" && response["response"].aidStatus === "SUCCESS"){
-          this.generateOTP(data);
-        }else{
+        const stage = response["response"].transactionStage;
+        const aidStatus = response["response"].aidStatus;
+        debugger
+        if(stage === "CARD_READY_TO_DOWNLOAD" && (aidStatus === "SUCCESS" || aidStatus === "IN-PROGRESS")){
+          this.generateOTP(data, stage, aidStatus);
+        } else{
           this.isUinNotReady = true
           this.orderStatus = response["response"].transactionStage;
           this.aidStatus = response["response"].aidStatus;
@@ -186,7 +191,7 @@ export class GetuinComponent implements OnInit {
     })
   }
 
-  generateOTP(data:any) {
+  generateOTP(data: any, stage: string, aidStatus: string) {
     this.transactionID = window.crypto.getRandomValues(new Uint32Array(1)).toString();
     if (this.transactionID.length < 10) {
       let diffrence = 10 - this.transactionID.length;
@@ -211,7 +216,13 @@ export class GetuinComponent implements OnInit {
     this.dataStorageService.generateOTPForUid(request)
     .subscribe((response) =>{
       if(!response["errors"]){
-        this.router.navigate(["downloadMyUin"],{state:{data,response}})
+        if (stage === "CARD_READY_TO_DOWNLOAD" && aidStatus === "SUCCESS") {
+          console.log("SUCCESS");
+          this.router.navigate(["downloadMyUin"],{state:{data,response}})
+        } else if (stage === "CARD_READY_TO_DOWNLOAD" && aidStatus === "IN-PROGRESS") {
+          console.log("IN-PROGRESS");
+          this.getNin(data); 
+        }
       }else{
         this.showErrorPopup(response["errors"])
       }
@@ -220,6 +231,22 @@ export class GetuinComponent implements OnInit {
       console.log(error)
     }
     )
+  }
+
+  getNin(rid: any) {
+  this.dataStorageService.getNinFromRID(rid)
+    .subscribe(res => {
+      if (res && !res["errors"]) {
+        const nin = res["response"].nin;
+        console.log("NIN:", nin);
+        this.ninValue = nin;
+        this.showNin = true;
+      } else {
+        this.showErrorPopup(res["errors"]);
+      }
+    }, error => {
+      console.log(error);
+    });
   }
 
   showErrorPopup(message: any) {
