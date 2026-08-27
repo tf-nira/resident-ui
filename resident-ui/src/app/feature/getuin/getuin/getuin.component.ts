@@ -38,6 +38,7 @@ export class GetuinComponent implements OnInit {
   stageKeys:any = [];
   disableSendOtp: boolean = true;
   aidStatus:string;
+  transactionStage: string;
   captchaEnable: boolean = false;
   sitealignment:string = localStorage.getItem('direction');
   classes:any ={
