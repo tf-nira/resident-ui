@@ -519,6 +519,7 @@
         "status": "Status",
         "uinTitleDescription": "Your NIN generation against the AID: $AID is still in progress.",
         "uinTitleDescription2": "Your NIN generation against the AID: $AID has failed.",
+        "uinTitleDescription3": "Your NIN generation against the AID: $AID has been completed successfully. Card generation is still in progress.",
         "requestMsg": "Please try again after a few days.",
         "requestMsg2": "For further information, please visit the nearest registration center.",
         "UINCardStatus": "NIN Card Status",
