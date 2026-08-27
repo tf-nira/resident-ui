@@ -37,8 +37,8 @@ export class DownloadUinComponent implements OnInit {
   pdfSrc = "";
   eventId: any;
   isLoading:boolean = false;
-  stage: string;
-  aidStatus: string;
+  stage: any;
+  aidStatus: any;
 
   userPreferredLangCode = localStorage.getItem("langCode");
   showNin: boolean;
@@ -109,6 +109,7 @@ export class DownloadUinComponent implements OnInit {
   }
 
   submitOtp(){
+    console.log("Submit to UIN download", this.stage, this.aidStatus);
     this.auditService.audit('RP-035', 'Get my UIN', 'RP-Get my UIN', 'Get my UIN', 'User clicks on the "submit button" on Get my UIN page', this.data);
     if(this.stage === "CARD_READY_TO_DOWNLOAD" && this.aidStatus === "SUCCESS") {
     this.validateUinCardOtp();
@@ -229,8 +230,7 @@ export class DownloadUinComponent implements OnInit {
       if (response && !response["errors"]) {
         const nin = response["response"].nin;
         console.log("NIN:", nin);
-        this.ninValue = nin;
-        this.showNin = true;
+        this.router.navigate(["getuin"], {state: {showStatus: true, aid: this.data, statusResponse: response}});
       } else {
         this.showErrorMsgPopup(response["errors"]);
       }

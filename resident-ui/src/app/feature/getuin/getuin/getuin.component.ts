@@ -106,6 +106,17 @@ export class GetuinComponent implements OnInit {
         this.infoText = response.InfomationContent.getUin.replace('$AID',this.aidLength).replace('$UIN',this.uinLength).replace('$VID',this.vidLength).replace('$NIN',this.ninLength)
         this.getStatusData = response.uinStatus
         this.stageKeys =  Object.keys(this.getStatusData.statusStages)
+        const state = this.router.getCurrentNavigation().extras.state;
+        console.log("State: ", state);
+        if (state && state.showStatus) {
+        const response = state.statusResponse.response;
+        this.aid = state.aid;
+        this.isUinNotReady = true;
+        this.orderStatus = response.transactionStage;
+        this.aidStatus = response.aidStatus;
+        this.orderStatusIndex = this.stageKeys.indexOf(this.orderStatus);
+        console.log("Values: ", this.orderStatus, this.aidStatus, this.orderStatusIndex);
+      }
     });
   }
 
@@ -215,7 +226,8 @@ export class GetuinComponent implements OnInit {
     this.dataStorageService.generateOTPForUid(request)
     .subscribe((response) =>{
       if(!response["errors"]){
-        this.router.navigate(["downloadMyUin"],{state:{data,response,stage: this.transactionStage, aidStatus: this.aidStatus}})
+        console.log("Navigate to UIN download", stage, aidStatus);
+        this.router.navigate(["downloadMyUin"],{state:{data,response,stage,aidStatus}})
       } else{
         this.showErrorPopup(response["errors"])
       }
