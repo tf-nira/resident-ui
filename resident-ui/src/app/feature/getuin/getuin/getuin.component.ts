@@ -105,23 +105,33 @@ export class GetuinComponent implements OnInit {
         this.popupMessages = response
         this.infoText = response.InfomationContent.getUin.replace('$AID',this.aidLength).replace('$UIN',this.uinLength).replace('$VID',this.vidLength).replace('$NIN',this.ninLength)
         this.getStatusData = response.uinStatus
-        this.stageKeys =  Object.keys(this.getStatusData.statusStages)
-        const state = this.router.getCurrentNavigation().extras.state;
-        console.log("State: ", state);
-        if (state && state.showStatus) {
-        const response = state.statusResponse.response;
-        this.aid = state.aid;
-        this.isUinNotReady = true;
-        this.orderStatus = response.transactionStage;
-        this.aidStatus = response.aidStatus;
-        this.orderStatusIndex = this.stageKeys.indexOf(this.orderStatus);
-        console.log("Values: ", this.orderStatus, this.aidStatus, this.orderStatusIndex);
-      }
+        this.stageKeys =  Object.keys(this.getStatusData.statusStages)        
     });
   }
 
   ngOnInit() {
     this.getConfigData()
+    const state = history.state;
+    console.log("Navigation State:", state);
+    if (state && state.showStatus) {
+      this.setNavigationData(state);
+    }
+  }
+
+  setNavigationData(state: any) {
+  const response = state.statusResponse.response;
+  this.aid = state.aid;
+  this.aidStatus = state.aidStatus;
+  this.transactionStage = state.stage;
+  this.isUinNotReady = true;
+    if (response) {
+      this.orderStatus = response.transactionStage;
+      this.orderStatusIndex = this.stageKeys.length
+        ? this.stageKeys.indexOf(this.orderStatus)
+        : -1;
+      this.ninValue = response.nin;
+    }
+    console.log("Values: ", this.orderStatus, this.aidStatus, this.orderStatusIndex);
   }
 
   onItemSelected(item: any) {

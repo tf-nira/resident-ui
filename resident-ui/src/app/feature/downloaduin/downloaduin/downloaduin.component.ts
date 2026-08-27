@@ -114,7 +114,7 @@ export class DownloadUinComponent implements OnInit {
     if(this.stage === "CARD_READY_TO_DOWNLOAD" && this.aidStatus === "SUCCESS") {
     this.validateUinCardOtp();
     } else if(this.stage === "CARD_READY_TO_DOWNLOAD" && this.aidStatus === "IN-PROGRESS") {
-      this.ValidateOtpGetNin();
+      this.ValidateOtpGetNin(this.stage, this.aidStatus);
     }
   }
 
@@ -211,7 +211,7 @@ export class DownloadUinComponent implements OnInit {
     });   
   }
 
-  ValidateOtpGetNin() {
+  ValidateOtpGetNin(stage: string, aidStatus: string) {
     this.isLoading = true;
     let self = this;
     const request = {
@@ -236,7 +236,8 @@ export class DownloadUinComponent implements OnInit {
       if (responseJson && responseJson["response"] && responseJson["response"].nin) {
         const nin = responseJson["response"].nin;
         console.log("NIN:", nin);
-        this.router.navigate(["getuin"], {state: {showStatus: true, aid: this.data, statusResponse: responseJson}});
+        console.log("responseJson: ", responseJson);
+        this.router.navigate(["getuin"], {state: {showStatus: true, aid: this.data, statusResponse: responseJson, stage, aidStatus}});
       } else {
         this.showErrorMsgPopup(responseJson && responseJson["errors"] ? responseJson["errors"] : [{
           errorCode: "UNKNOWN",
