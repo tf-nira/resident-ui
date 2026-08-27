@@ -51,6 +51,7 @@ export class GetuinComponent implements OnInit {
   aidLength:string;
   ninLength:string;
   isLoading:boolean = true;
+  ninValue: any;
 
   constructor(
     private router: Router,
