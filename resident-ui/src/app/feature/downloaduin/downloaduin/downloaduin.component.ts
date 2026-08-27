@@ -37,8 +37,12 @@ export class DownloadUinComponent implements OnInit {
   pdfSrc = "";
   eventId: any;
   isLoading:boolean = false;
+  stage: string;
+  aidStatus: string;
 
   userPreferredLangCode = localStorage.getItem("langCode");
+  showNin: boolean;
+  ninValue: any;
 
   constructor(
     private router: Router,
@@ -54,9 +58,11 @@ export class DownloadUinComponent implements OnInit {
       this.transactionID = this.router.getCurrentNavigation().extras.state.response.transactionId
       this.phoneNumber = this.router.getCurrentNavigation().extras.state.response.response.maskedMobile
       this.emailId = this.router.getCurrentNavigation().extras.state.response.response.maskedEmail
+      this.stage = this.router.getCurrentNavigation().extras.state.stage;
+      this.aidStatus = this.router.getCurrentNavigation().extras.state.aidStatus;
     } else {
       this.router.navigate(["getuin"])
-      clearInterval(this.interval)
+      clearInterval(this.interval)  
     }
 
   }
@@ -104,7 +110,11 @@ export class DownloadUinComponent implements OnInit {
 
   submitOtp(){
     this.auditService.audit('RP-035', 'Get my UIN', 'RP-Get my UIN', 'Get my UIN', 'User clicks on the "submit button" on Get my UIN page', this.data);
-    this.validateUinCardOtp()
+    if(this.stage === "CARD_READY_TO_DOWNLOAD" && this.aidStatus === "SUCCESS") {
+    this.validateUinCardOtp();
+    } else if(this.stage === "CARD_READY_TO_DOWNLOAD" && this.aidStatus === "IN-PROGRESS") {
+      this.ValidateOtpGetNin();
+    }
   }
 
   resendOtp(){
@@ -198,6 +208,35 @@ export class DownloadUinComponent implements OnInit {
     error => {
       console.log(error)
     });   
+  }
+
+  ValidateOtpGetNin() {
+    this.isLoading = true;
+    let self = this;
+    const request = {
+      "id": "mosip.resident.download.uin.card",
+      "version": this.appConfigService.getConfig()["resident.vid.version.new"],
+      "requesttime": Utils.getCurrentDate(),
+      "request": {
+        "transactionId": self.transactionID,
+        "individualId": self.data,
+        "otp": self.otp
+      }
+    };
+    
+    self.dataStorageService.getNinFromRID(request)
+    .subscribe(async (response: any) => {
+      if (response && !response["errors"]) {
+        const nin = response["response"].nin;
+        console.log("NIN:", nin);
+        this.ninValue = nin;
+        this.showNin = true;
+      } else {
+        this.showErrorMsgPopup(response["errors"]);
+      }
+    }, error => {
+      console.log(error);
+    });
   }
 
   showMessage(message: string, eventId: any) {

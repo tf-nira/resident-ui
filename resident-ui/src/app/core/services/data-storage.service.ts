@@ -282,7 +282,10 @@ export class DataStorageService {
   validateUinCardOtp(reqData: any) {
    return this.httpClient.post(this.BASE_URL + '/download-card', reqData, {responseType: "blob", observe: 'response'})
   }
-
+  
+  getNinFromRID(reqData: any) {
+   return this.httpClient.post(this.BASE_URL + '/getNin', reqData, {responseType: "blob", observe: 'response'})
+  }
 
   downloadpdf(request: any) {
     return this.httpClient.get<Blob>(this.BASE_URL + '/download/personalized-card', { observe: 'response', responseType: 'blob' as 'json' });
@@ -355,10 +358,6 @@ export class DataStorageService {
 
   getStatus(individualId: any) {
     return this.httpClient.get(this.BASE_URL + '/aid-stage/' + individualId)
-  }
-
-  getNinFromRID(rid: string) {
-    return this.httpClient.get(this.BASE_URL + '/getNin/' + rid)
   }
   
   registrationCentersList(langcode: any,hierarchylevel:any,name:any) {

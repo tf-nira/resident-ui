@@ -50,8 +50,6 @@ export class GetuinComponent implements OnInit {
   aidLength:string;
   ninLength:string;
   isLoading:boolean = true;
-  ninValue: any;
-  showNin: boolean;
 
   constructor(
     private router: Router,
@@ -216,14 +214,8 @@ export class GetuinComponent implements OnInit {
     this.dataStorageService.generateOTPForUid(request)
     .subscribe((response) =>{
       if(!response["errors"]){
-        if (stage === "CARD_READY_TO_DOWNLOAD" && aidStatus === "SUCCESS") {
-          console.log("SUCCESS");
-          this.router.navigate(["downloadMyUin"],{state:{data,response}})
-        } else if (stage === "CARD_READY_TO_DOWNLOAD" && aidStatus === "IN-PROGRESS") {
-          console.log("IN-PROGRESS");
-          this.getNin(data); 
-        }
-      }else{
+        this.router.navigate(["downloadMyUin"],{state:{data,response,stage: this.transactionStage, aidStatus: this.aidStatus}})
+      } else{
         this.showErrorPopup(response["errors"])
       }
     },
@@ -231,22 +223,6 @@ export class GetuinComponent implements OnInit {
       console.log(error)
     }
     )
-  }
-
-  getNin(rid: any) {
-  this.dataStorageService.getNinFromRID(rid)
-    .subscribe(res => {
-      if (res && !res["errors"]) {
-        const nin = res["response"].nin;
-        console.log("NIN:", nin);
-        this.ninValue = nin;
-        this.showNin = true;
-      } else {
-        this.showErrorPopup(res["errors"]);
-      }
-    }, error => {
-      console.log(error);
-    });
   }
 
   showErrorPopup(message: any) {
