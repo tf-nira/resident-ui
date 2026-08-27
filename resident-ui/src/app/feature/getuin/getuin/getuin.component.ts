@@ -50,6 +50,7 @@ export class GetuinComponent implements OnInit {
   uinLength:string;
   aidLength:string;
   ninLength:string;
+  navigationState:any;
   isLoading:boolean = true;
   ninValue: any;
 
@@ -106,7 +107,10 @@ export class GetuinComponent implements OnInit {
         this.popupMessages = response
         this.infoText = response.InfomationContent.getUin.replace('$AID',this.aidLength).replace('$UIN',this.uinLength).replace('$VID',this.vidLength).replace('$NIN',this.ninLength)
         this.getStatusData = response.uinStatus
-        this.stageKeys =  Object.keys(this.getStatusData.statusStages)        
+        this.stageKeys =  Object.keys(this.getStatusData.statusStages)
+        if (this.navigationState && this.navigationState.showStatus) {
+          this.setNavigationData(this.navigationState);
+        }
     });
   }
 
@@ -115,23 +119,19 @@ export class GetuinComponent implements OnInit {
     const state = history.state;
     console.log("Navigation State:", state);
     if (state && state.showStatus) {
-      this.setNavigationData(state);
+      this.navigationState = state;
     }
   }
 
   setNavigationData(state: any) {
-  const response = state.statusResponse.response;
-  this.aid = state.aid;
-  this.aidStatus = state.aidStatus;
-  this.transactionStage = state.stage;
-  this.isUinNotReady = true;
-    if (response) {
-      this.orderStatus = response.transactionStage;
-      this.orderStatusIndex = this.stageKeys.length
-        ? this.stageKeys.indexOf(this.orderStatus)
-        : -1;
-      this.ninValue = response.nin;
-    }
+    const response = state.statusResponse && state.statusResponse.response;
+    this.aid = state.aid;
+    this.aidStatus = state.aidStatus || (response && response.aidStatus);
+    this.transactionStage = state.stage || (response && response.transactionStage);
+    this.orderStatus = this.transactionStage;
+    this.orderStatusIndex = this.stageKeys.indexOf(this.orderStatus);
+    this.ninValue = response && response.nin;
+    this.isUinNotReady = true;
     console.log("Values: ", this.orderStatus, this.aidStatus, this.orderStatusIndex);
   }
 

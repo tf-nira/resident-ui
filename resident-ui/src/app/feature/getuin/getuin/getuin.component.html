@@ -47,6 +47,9 @@
     <mat-card-subtitle [style.font-size]="fontSize.paragraph"
       class="status-title-text" *ngIf="aid && aidStatus === 'FAILURE' ">{{getStatusData.uinTitleDescription2.replace("$AID",aid)}}
     </mat-card-subtitle>
+    <mat-card-subtitle *ngIf="aidStatus === 'IN-PROGRESS' && ninValue" class="status-title-text" [style.font-size]="fontSize.paragraph">
+      NIN: {{ ninValue }}
+    </mat-card-subtitle>
       <mat-card-subtitle [style.font-size]="fontSize.paragraph" *ngIf="aidStatus === 'SUCCESS' || aidStatus === 'IN-PROGRESS'" class="req-msg-text">{{getStatusData.requestMsg}}</mat-card-subtitle>
       <mat-card-subtitle [style.font-size]="fontSize.paragraph" *ngIf="aidStatus === 'FAILURE' " class="req-msg-text">{{getStatusData.requestMsg2}}</mat-card-subtitle>
   </div>
