@@ -37,8 +37,12 @@ export class DownloadUinComponent implements OnInit {
   pdfSrc = "";
   eventId: any;
   isLoading:boolean = false;
+  stage: any;
+  aidStatus: any;
 
   userPreferredLangCode = localStorage.getItem("langCode");
+  showNin: boolean;
+  ninValue: any;
 
   constructor(
     private router: Router,
@@ -54,9 +58,11 @@ export class DownloadUinComponent implements OnInit {
       this.transactionID = this.router.getCurrentNavigation().extras.state.response.transactionId
       this.phoneNumber = this.router.getCurrentNavigation().extras.state.response.response.maskedMobile
       this.emailId = this.router.getCurrentNavigation().extras.state.response.response.maskedEmail
+      this.stage = this.router.getCurrentNavigation().extras.state.stage;
+      this.aidStatus = this.router.getCurrentNavigation().extras.state.aidStatus;
     } else {
       this.router.navigate(["getuin"])
-      clearInterval(this.interval)
+      clearInterval(this.interval)  
     }
 
   }
@@ -103,8 +109,13 @@ export class DownloadUinComponent implements OnInit {
   }
 
   submitOtp(){
+    console.log("Submit to UIN download", this.stage, this.aidStatus);
     this.auditService.audit('RP-035', 'Get my UIN', 'RP-Get my UIN', 'Get my UIN', 'User clicks on the "submit button" on Get my UIN page', this.data);
-    this.validateUinCardOtp()
+    if(this.stage === "CARD_READY_TO_DOWNLOAD" && this.aidStatus === "SUCCESS") {
+    this.validateUinCardOtp();
+    } else if(this.stage === "CARD_READY_TO_DOWNLOAD" && this.aidStatus === "IN-PROGRESS") {
+      this.ValidateOtpGetNin(this.stage, this.aidStatus);
+    }
   }
 
   resendOtp(){
@@ -198,6 +209,44 @@ export class DownloadUinComponent implements OnInit {
     error => {
       console.log(error)
     });   
+  }
+
+  ValidateOtpGetNin(stage: string, aidStatus: string) {
+    this.isLoading = true;
+    let self = this;
+    const request = {
+      "id": "mosip.resident.download.uin.card",
+      "version": this.appConfigService.getConfig()["resident.vid.version.new"],
+      "requesttime": Utils.getCurrentDate(),
+      "request": {
+        "transactionId": self.transactionID,
+        "individualId": self.data,
+        "otp": self.otp
+      }
+    };
+    
+    self.dataStorageService.getNinFromRID(request)
+    .subscribe(async (response: any) => {
+      const responseData = response && response.body instanceof Blob
+        ? await response.body.text()
+        : response && response.body ? response.body : response;
+      const responseJson = typeof responseData === "string"
+        ? JSON.parse(responseData)
+        : responseData;
+      if (responseJson && responseJson["response"] && responseJson["response"].nin) {
+        const nin = responseJson["response"].nin;
+        console.log("NIN:", nin);
+        console.log("responseJson: ", responseJson);
+        this.router.navigate(["getuin"], {state: {showStatus: true, aid: this.data, statusResponse: responseJson, stage, aidStatus}});
+      } else {
+        this.showErrorMsgPopup(responseJson && responseJson["errors"] ? responseJson["errors"] : [{
+          errorCode: "UNKNOWN",
+          message: "Unable to retrieve NIN"
+        }]);
+      }
+    }, error => {
+      console.log(error);
+    });
   }
 
   showMessage(message: string, eventId: any) {

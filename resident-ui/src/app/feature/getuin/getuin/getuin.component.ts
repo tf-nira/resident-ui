@@ -38,6 +38,7 @@ export class GetuinComponent implements OnInit {
   stageKeys:any = [];
   disableSendOtp: boolean = true;
   aidStatus:string;
+  transactionStage: string;
   captchaEnable: boolean = false;
   sitealignment:string = localStorage.getItem('direction');
   classes:any ={
@@ -49,7 +50,9 @@ export class GetuinComponent implements OnInit {
   uinLength:string;
   aidLength:string;
   ninLength:string;
+  navigationState:any;
   isLoading:boolean = true;
+  ninValue: any;
 
   constructor(
     private router: Router,
@@ -105,11 +108,31 @@ export class GetuinComponent implements OnInit {
         this.infoText = response.InfomationContent.getUin.replace('$AID',this.aidLength).replace('$UIN',this.uinLength).replace('$VID',this.vidLength).replace('$NIN',this.ninLength)
         this.getStatusData = response.uinStatus
         this.stageKeys =  Object.keys(this.getStatusData.statusStages)
+        if (this.navigationState && this.navigationState.showStatus) {
+          this.setNavigationData(this.navigationState);
+        }
     });
   }
 
   ngOnInit() {
     this.getConfigData()
+    const state = history.state;
+    console.log("Navigation State:", state);
+    if (state && state.showStatus) {
+      this.navigationState = state;
+    }
+  }
+
+  setNavigationData(state: any) {
+    const response = state.statusResponse && state.statusResponse.response;
+    this.aid = state.aid;
+    this.aidStatus = state.aidStatus || (response && response.aidStatus);
+    this.transactionStage = state.stage || (response && response.transactionStage);
+    this.orderStatus = this.transactionStage;
+    this.orderStatusIndex = this.stageKeys.indexOf(this.orderStatus);
+    this.ninValue = response && response.nin;
+    this.isUinNotReady = true;
+    console.log("Values: ", this.orderStatus, this.aidStatus, this.orderStatusIndex);
   }
 
   onItemSelected(item: any) {
@@ -170,9 +193,12 @@ export class GetuinComponent implements OnInit {
   getStatus(data:any){
     this.dataStorageService.getStatus(data).subscribe(response =>{
       if(response["response"]){
-        if(response["response"].transactionStage === "CARD_READY_TO_DOWNLOAD" && response["response"].aidStatus === "SUCCESS"){
-          this.generateOTP(data);
-        }else{
+        const stage = response["response"].transactionStage;
+        const aidStatus = response["response"].aidStatus;
+        debugger
+        if(stage === "CARD_READY_TO_DOWNLOAD" && (aidStatus === "SUCCESS" || aidStatus === "IN-PROGRESS")){
+          this.generateOTP(data, stage, aidStatus);
+        } else{
           this.isUinNotReady = true
           this.orderStatus = response["response"].transactionStage;
           this.aidStatus = response["response"].aidStatus;
@@ -186,7 +212,7 @@ export class GetuinComponent implements OnInit {
     })
   }
 
-  generateOTP(data:any) {
+  generateOTP(data: any, stage: string, aidStatus: string) {
     this.transactionID = window.crypto.getRandomValues(new Uint32Array(1)).toString();
     if (this.transactionID.length < 10) {
       let diffrence = 10 - this.transactionID.length;
@@ -211,8 +237,9 @@ export class GetuinComponent implements OnInit {
     this.dataStorageService.generateOTPForUid(request)
     .subscribe((response) =>{
       if(!response["errors"]){
-        this.router.navigate(["downloadMyUin"],{state:{data,response}})
-      }else{
+        console.log("Navigate to UIN download", stage, aidStatus);
+        this.router.navigate(["downloadMyUin"],{state:{data,response,stage,aidStatus}})
+      } else{
         this.showErrorPopup(response["errors"])
       }
     },
