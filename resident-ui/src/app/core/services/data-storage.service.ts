@@ -219,7 +219,7 @@ export class DataStorageService {
     return this.httpClient.post(this.BASE_URL + '/share-credential', request, { observe: 'response' });
   }
 
-private getPrnValidationUrl() {
+ private getPrnValidationUrl() {
     try {
       const parsed = new URL(this.BASE_URL);
       return parsed.origin + '/v1/payment/checkTranscLogs';
@@ -237,7 +237,7 @@ private getPrnValidationUrl() {
     }
   }
 
-consumePrn(request: any) {
+  consumePrn(request: any) {
     return this.httpClient.post<any>(this.getConsumePrnUrl(), request);
   }
 
@@ -282,7 +282,10 @@ consumePrn(request: any) {
   validateUinCardOtp(reqData: any) {
    return this.httpClient.post(this.BASE_URL + '/download-card', reqData, {responseType: "blob", observe: 'response'})
   }
-
+  
+  getNinFromRID(reqData: any) {
+   return this.httpClient.post(this.BASE_URL + '/getNin', reqData, {responseType: "blob", observe: 'response'})
+  }
 
   downloadpdf(request: any) {
     return this.httpClient.get<Blob>(this.BASE_URL + '/download/personalized-card', { observe: 'response', responseType: 'blob' as 'json' });
