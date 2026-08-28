@@ -208,7 +208,6 @@ export class SharewithpartnerComponent implements OnInit, OnDestroy {
     this.remainingChars = this.totalCommentCount - enterdChars
   }
 
-
  resetPrnValidity() {
     this.prnValid = false;
     this.prnValidationMessage = "";
@@ -521,7 +520,7 @@ export class SharewithpartnerComponent implements OnInit, OnDestroy {
     } else if (!this.purpose.match(this.purposeValidation)) {
       this.message = this.popupMessages.genericmessage.sharewithpartner.specialCharacters;
       this.showValidateMessage(this.message);
-     } else if (!this.prnValid) {
+    } else if (!this.prnValid) {
       this.message = this.popupMessages.genericmessage.sharewithpartner.invalidPrn || "PRN must be 13 digits.";
       this.showValidateMessage(this.message);
     } else {
@@ -529,7 +528,7 @@ export class SharewithpartnerComponent implements OnInit, OnDestroy {
     }
   }
 
-  consumePrnBeforeShare() {
+ consumePrnBeforeShare() {
     const regId = this.sharableAttributes['NIN'] ? this.sharableAttributes['NIN']['value'] : "";
     const prnValue = (this.prn || "").trim();
 
@@ -568,6 +567,7 @@ export class SharewithpartnerComponent implements OnInit, OnDestroy {
       }
     );
   }
+
 
   shareInfo() {
     this.isLoading = true;
