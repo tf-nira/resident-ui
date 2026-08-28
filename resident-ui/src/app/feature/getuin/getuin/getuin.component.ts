@@ -193,9 +193,12 @@ export class GetuinComponent implements OnInit {
   getStatus(data:any){
     this.dataStorageService.getStatus(data).subscribe(response =>{
       if(response["response"]){
-        const stage = response["response"].transactionStage;
-        const aidStatus = response["response"].aidStatus;
-        debugger
+        let stage = response["response"].transactionStage;
+        let aidStatus = response["response"].aidStatus;
+        if (stage === "UIN_GENERATION_STAGE" && aidStatus === "SUCCESS") {
+          stage = "CARD_READY_TO_DOWNLOAD";
+          aidStatus = "IN-PROGRESS";
+        }
         if(stage === "CARD_READY_TO_DOWNLOAD" && (aidStatus === "SUCCESS" || aidStatus === "IN-PROGRESS")){
           this.generateOTP(data, stage, aidStatus);
         } else{
