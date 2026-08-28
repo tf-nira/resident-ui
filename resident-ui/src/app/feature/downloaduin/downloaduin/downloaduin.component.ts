@@ -238,11 +238,13 @@ export class DownloadUinComponent implements OnInit {
         console.log("NIN:", nin);
         console.log("responseJson: ", responseJson);
         this.router.navigate(["getuin"], {state: {showStatus: true, aid: this.data, statusResponse: responseJson, stage, aidStatus}});
-      } else {
-        this.showErrorMsgPopup(responseJson && responseJson["errors"] ? responseJson["errors"] : [{
-          errorCode: "UNKNOWN",
-          message: "Unable to retrieve NIN"
-        }]);
+      }else{
+        var reader = new FileReader();
+          reader.onloadend = function(e) {
+          let failureResponse = JSON.parse((<any>e.target).result)
+          self.showErrorMsgPopup(failureResponse.errors);
+        }
+        reader.readAsText(responseJson.body);
       }
     }, error => {
       console.log(error);
