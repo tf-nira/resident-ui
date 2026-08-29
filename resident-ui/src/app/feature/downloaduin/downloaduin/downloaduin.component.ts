@@ -227,6 +227,7 @@ export class DownloadUinComponent implements OnInit {
     
     self.dataStorageService.getNinFromRID(request)
     .subscribe(async (response: any) => {
+      this.isLoading = false;
       const responseData = response && response.body instanceof Blob
         ? await response.body.text()
         : response && response.body ? response.body : response;
@@ -238,13 +239,14 @@ export class DownloadUinComponent implements OnInit {
         console.log("NIN:", nin);
         console.log("responseJson: ", responseJson);
         this.router.navigate(["getuin"], {state: {showStatus: true, aid: this.data, statusResponse: responseJson, stage, aidStatus}});
-      } else {
-        this.showErrorMsgPopup(responseJson && responseJson["errors"] ? responseJson["errors"] : [{
+      }else{
+        self.showErrorMsgPopup(responseJson && responseJson.errors ? responseJson.errors : [{
           errorCode: "UNKNOWN",
           message: "Unable to retrieve NIN"
         }]);
       }
     }, error => {
+      this.isLoading = false;
       console.log(error);
     });
   }
