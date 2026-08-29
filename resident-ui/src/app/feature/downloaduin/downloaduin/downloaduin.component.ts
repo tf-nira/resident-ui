@@ -212,7 +212,7 @@ export class DownloadUinComponent implements OnInit {
   }
 
   ValidateOtpGetNin(stage: string, aidStatus: string) {
-    this.isLoading = false;
+    this.isLoading = true;
     let self = this;
     const request = {
       "id": "mosip.resident.download.uin.card",
@@ -227,6 +227,7 @@ export class DownloadUinComponent implements OnInit {
     
     self.dataStorageService.getNinFromRID(request)
     .subscribe(async (response: any) => {
+      this.isLoading = false;
       const responseData = response && response.body instanceof Blob
         ? await response.body.text()
         : response && response.body ? response.body : response;
