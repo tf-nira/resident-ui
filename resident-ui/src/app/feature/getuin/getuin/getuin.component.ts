@@ -191,6 +191,7 @@ export class GetuinComponent implements OnInit {
   }
 
   getStatus(data:any){
+    this.ninValue = null;
     this.dataStorageService.getStatus(data).subscribe(response =>{
       if(response["response"]){
         let stage = response["response"].transactionStage;
